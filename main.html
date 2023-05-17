@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick cоздание CMR  for  LCL</title>
+    <link rel="stylesheet" href="./resources/main.css">
+    <script src="./resources/country/script.js"></script>
+</head>
+<body>
+    <h1>Quick create CMR  for  LCL</h1>
+    <br>
+    <input type="button" id="add-kraj" value="Dodać komplet" onclick="cloneForm()">
+    <input type="button" id="refresh" value="Reset" onclick="location.reload()">
+    <input type="submit" id="submit-button" value="DRUKUJ CMR" onclick="submitForm()">
+    <!-- <input type="button" id="testcmr" value="testcmr" onclick="testcmr()"> -->
+    <br>
+    <br>
+    <div class="input-answer">
+        <div class="main-input">
+            <label for="plomb-number">Numer plomby:</label>
+            <input type="text" id="plomb-number" name="plomb-number" value=""><br>
+            <label for="ref-auto">Nr referencyjny:</label>
+            <input type="text" id="ref-auto" name="ref-auto" value=""><br>
+            <label for="brama">Brama:</label>
+            <input type="number" id="brama" name="brama" min="1" max="35" value=""><br>
+        </div>
+        <div class="otvety">
+            <p id="suma-palet">Suma palet</p>
+            <p id="suma-korobok">Suma korobok</p>
+            <p id="strany">Strany</p>
+            <p id="kwit">kwit</p>
+        </div>
+    </div>
+    <datalist id="exampleList">
+        <option value="BG SPEEDY CZWARTEK PIĄTEK">
+        <option value="BG SPEEDY SOBOTA-ŚRODA">
+        <option value="BG ECONT">
+        <!-- <option value="CH SWISSPOST"> -->
+        <option value="CZ ZAS PRAGA NEHVIZDY pn-czw">
+        <option value="CZ ZAS PT i ND (12:00)">
+        <option value="FR LA POSTE">
+        <option value="GR GENIKI">	
+        <option value="ACS GR">
+        <option value="HR GLS">
+        <option value="HU GLS">
+        <option value="HU FOX">
+        <option value="IT BARTOLINI">
+        <option value="IT Inpost">
+        <option value="LT DPD">
+        <option value="Sameday RO">
+        <option value="SI GLS">
+        <option value="RO GLS">
+        <option value="SK DPD Dolný Hričov">	
+        <option value="ZIL SK/ ZAS SK">
+    </datalist>
+    <form class="hidden">
+        <fieldset>
+            <legend id="legenda">Komplet 0</legend>
+            <div class="input-box">
+                <label for="country">Kraj:</label>
+                <input type="text" id="country" name="country" list="exampleList" required="required" value=""/><br>
+
+                <label for="box-quantity">Ilość paczek:</label>
+                <input type="number" id="box-quantity" name="box-quantity" min="0" max="10000" value=""><br>
+
+                <label for="pallet-quantity">Ilość palet:</label>
+                <input type="number" id="pallet-quantity" name="pallet-quantity" min="0" max="100" value=""><br>
+            </div>
+            <div class="input-checkbox">
+                <label for="print">Dodać do wydruku:</label>
+                <input type="checkbox" id="print" name="print" checked><br>
+				
+            </div>
+			<div class="img-trash">
+					<img src="./resources/trash.png" id="delete-form">
+			</div>
+			
+        </fieldset>
+		
+	</form>
+    <script>
+        //document.getElementById('country').addEventListener('change', writeAnwer);
+       // document.getElementById('box-quantity').addEventListener('change', writeAnwer);
+       // document.getElementById('pallet-quantity').addEventListener('change', writeAnwer);
+		//const image = document.getElementById('delete-form');
+		//image.addEventListener('click',removeForm);
+		//image.style.display='none';
+		cloneForm();
+    </script>
+</body>
+</html>

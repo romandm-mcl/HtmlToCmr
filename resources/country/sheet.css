@@ -1,0 +1,129 @@
+
+body{
+  margin: 10px;
+}
+td {
+  color: black;
+  vertical-align: middle;
+  font-family: "Arial";
+  text-align: left;
+  font-size: 6pt;
+ 
+}
+
+.rotated-text__inner{
+  display: inline-block;
+  white-space: nowrap;
+  width: 1em;
+  line-height: 1.5;
+  transform: translate(0,100%) rotate(270deg);
+  transform-origin: 0 0;
+}
+.rotated-text__inner_a{
+  display: inline-block;
+  white-space: nowrap;
+  width: 1em;
+  line-height: 1.5;
+  transform: translate(0,100%) rotate(90deg);
+  transform-origin: 0 0;
+}
+
+.border-top-table{
+  border-top: 1px solid black;
+}
+.border-right-table{
+  border-right: 1px solid black;
+}
+.border-left-table{
+  border-left: 1px solid black;
+}
+.border-bottom-table{
+  border-bottom: 1px solid black;
+}
+
+
+.th-a{width: 24px;}
+.th-b{width: 11px;}
+.th-c{width: 26px;}
+.th-d{width: 57px;}
+.th-e{width: 49px;}
+.th-f{width: 19px;}
+.th-g{width: 29px;}
+.th-h{width: 35px;}
+.th-i{width: 23px;}
+.th-j{width: 22px}
+.th-k{width: 26px}
+.th-l{width: 22px}
+.th-m{width: 19px}
+.th-n{width: 25px}
+.th-o{width: 44px}
+.th-p{width: 24px}
+.th-q{width: 31px}
+.th-r{width: 32px}
+.th-s{width: 34px}
+.th-t{width: 28px}
+.th-u{width: 38px}
+.th-v{width: 30px}
+.th-w{width: 37px}
+.th-x{width: 33px}
+.th-y{width: 11px}
+.th-z{width: 11px}
+
+.s1{
+  text-align: center;
+  font-size: 18pt;
+}
+.s2{
+  text-align: left;
+  font-size: 8pt;
+}
+.s3{
+  text-align: left;
+  font-size: 8pt;
+}
+.s4{
+  text-align: center;
+  font-size: 7pt;
+}
+.s8{
+  text-align: left;
+  font-size: 16pt;
+}
+.s7{
+  font-size: 10pt;
+}
+.s11{
+  font-size: 11pt;
+}
+.s12{
+  font-size: 11pt;
+  color: rgb(255, 255, 255);
+}
+.s13{
+  font-size: 12pt;
+  text-align: center;
+  font-weight: bold;
+}
+.s14{
+  font-size: 10pt;
+  border:  1px solid black;
+  border-left: none;
+}
+.s15{
+  font-size: 10pt;
+  text-align: center;
+}
+.s16{
+  font-size: 10pt;
+  text-align: center;
+  vertical-align: bottom;
+}
+.s17{
+  width: inherit;
+  height: 17px;
+  padding: 1px;
+}
+.s18{
+  font-size: 10pt;
+  font-weight: bold;
+}

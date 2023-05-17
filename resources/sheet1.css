@@ -1,0 +1,220 @@
+/* @media print { */
+  /* @media print {
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    html, body {
+      width: 210mm;
+      height: 297mm;
+      margin: 5px;
+      padding: 0;
+      /* -webkit-print-color-adjust: exact; */
+    /* }
+  } */ 
+  *{
+    vertical-align: middle;
+    padding: 1px ;
+  }
+
+    .header, .footer {
+      display: none;
+    }
+  
+    .print-only {
+      display: block;
+    }
+  .modivo-img{
+    width: 70%;
+  }
+  .bus-out, .bus-in{
+    width: 80%;
+  }
+
+  tr .row-tr{
+    height: 10px;
+  }
+  .column-headers-background {
+    width: 46px;
+  }
+
+  .s0{
+    width: 500px;
+
+  }
+  .s1 {
+    text-align: left;
+    font-family: "Arial";
+    font-size: 10pt;
+  }
+
+  .s3 {
+    border: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 10pt;
+  }
+
+  .s4 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    border-left: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 10pt;
+  }
+  .s5 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 10pt;
+  }
+
+  .s8 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    border-left: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 26pt;
+  }
+
+  .s9 {
+    border-bottom: 1px SOLID #000000;
+    text-align: center;
+    font-family: "Arial";
+    font-size: 8pt;
+  }
+
+  .s10 {
+    border-right: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 8pt;
+  }
+
+  .s11 {
+    border-right: 1px SOLID #000000;
+    text-align: left;
+    font-family: "Arial";
+    font-size: 8pt;
+    vertical-align: bottom;
+  }
+
+  .s12 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 8pt;
+    vertical-align: middle;
+    overflow: hidden;
+  }
+  .s13 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    text-align: left;
+    font-family: "Arial";
+    font-size: 8pt;
+    vertical-align: bottom;
+  }
+
+  .s7 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    border-left: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 8pt;
+    vertical-align: middle;
+  }
+
+  .s14 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    border-left: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 8pt;
+    vertical-align: middle;
+    overflow: hidden;
+  }
+
+  .s15 {
+    border-bottom: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 8pt;
+    vertical-align: middle;
+  }
+  .s16 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 16pt;
+    vertical-align: middle;
+  }
+
+  .s17 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    border-left: 1px SOLID #000000;
+  }
+  .s18 {
+    border-bottom: 1px SOLID #000000;
+    text-align: center;
+
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 22pt;
+    vertical-align: middle;
+  }
+
+  .s19 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;
+    border-left: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 22pt;
+    vertical-align: middle;
+  }
+  .s20 {
+    border-bottom: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 12pt;
+  }
+
+  .s21 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;;
+    border-left: 1px SOLID #000000;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 8pt;
+  }
+  .s22 {
+    border-bottom: 1px SOLID #000000;
+    border-right: 1px SOLID #000000;;
+    text-align: center;
+
+    font-weight: bold;
+    font-family: "Arial";
+    font-size: 8pt;
+  }
