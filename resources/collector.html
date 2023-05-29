@@ -11,7 +11,7 @@
 		margin: 0;
 		}
              iframe {
-				 margin; 5px;
+				 margin: 5px;
                 frameborder: 0px;
                 scrolling: no;
 				
@@ -36,7 +36,9 @@
 
         let iframeHTML='';
         let parametry='';
-
+        /////////////////////
+        //Блок   курьера  LCL
+        /////////////////////
         // проверяем на пустое поле  страны    
         arr.map((a,index)=>{
             if(a.name===''||a.name===' ') {
@@ -53,13 +55,12 @@
         //let tt1=data1now().toString().split(" ")[1].toString();
 		//kodKP=tt1.replace(/:/g,'');
 		let numTmp=0;
-        // console.log(kodKP);
-        // document.write(`<p> Numer plobmy = ${nrPlomby}, ref = ${nrRef} </p> `); 
+        ument.write(`<p> Numer plobmy = ${nrPlomby}, ref = ${nrRef} </p> `); 
         //  create page 
         //  create  iframe for arrKrajs for all
             //  5 CMR  na 1 kraj
                 for (kraj of arr){
-                    if (!kraj.printed) continue; // пропускаем если снята галочка 
+                    if (!kraj.printed) continue; // пропускаем если снята галочка печатать
 
                     // iframeHTML = `<p> Kray = ${kraj[0]}, Paczek = ${kraj[1]}, Palet = ${kraj[2]}</p>`;
                     //create  obj for one cmr
@@ -99,13 +100,10 @@
                     document.write(iframeHTML); 
                 }
         //  2 CMR  na Dodatok
-        // urlParams
             // iframeHTML = `<p> Kray = ${kraj[0]}, Paczek = ${kraj[1]}, Palet = ${kraj[2]}</p>`;
             iframeHTML = `<iframe frameborder="0" width="700" height="1100" src="./country/dodatekLCL.html?${urlParams}"></iframe>`
             document.write(iframeHTML); 
             document.write(iframeHTML); 
-        // document.writeln(arrKrajs);
-        // console.log(arrKrajs);
 		window.print();
       </script>  
     </body>
