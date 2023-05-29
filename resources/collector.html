@@ -14,10 +14,8 @@
 				 margin: 5px;
                 frameborder: 0px;
                 scrolling: no;
-				
 				page-break-after: always;
             } 
-            
         </style>
     </head>
     <body>
@@ -30,80 +28,74 @@
         let nrPlomby=queryKray.plomba;
         let nrRef=queryKray.nrRef;
         let brama=queryKray.brama;
-        const kodKP=queryKray.kodkp;
+        const kodKP=String(queryKray.kodkp).toUpperCase();
         let arr = queryKray.kraj;
         let arrKrajs = [];
 
         let iframeHTML='';
         let parametry='';
+        // console.log(arr);
         /////////////////////
         //Блок   курьера  LCL
         /////////////////////
         // проверяем на пустое поле  страны    
-        arr.map((a,index)=>{
-            if(a.name===''||a.name===' ') {
-                window.alert(`В комплекте ${index+1} не указана страна`);
-                window.close();
-            }
-            if(a.ilepaczek<1) {
-                window.alert(`В комплекте ${index+1} не указана количество пачек`);
-                window.close();
-            }
-        })
-        // create kod KP
-        //let kodKP='';
-        //let tt1=data1now().toString().split(" ")[1].toString();
-		//kodKP=tt1.replace(/:/g,'');
-		let numTmp=0;
-        ument.write(`<p> Numer plobmy = ${nrPlomby}, ref = ${nrRef} </p> `); 
-        //  create page 
-        //  create  iframe for arrKrajs for all
-            //  5 CMR  na 1 kraj
-                for (kraj of arr){
-                    if (!kraj.printed) continue; // пропускаем если снята галочка печатать
-
-                    // iframeHTML = `<p> Kray = ${kraj[0]}, Paczek = ${kraj[1]}, Palet = ${kraj[2]}</p>`;
-                    //create  obj for one cmr
-					
-                    const myObjParm = {
-                        brama: brama,
-                        kraj:[{
-                            ilepaczek:kraj.ilepaczek,
-                            ilepalet:kraj.ilepalet,
-                            name:kraj.name,
-                            printed:kraj.printed
-                        }],
-                        nrRef:nrRef,
-                        plomba: nrPlomby
-                    };
-                    //кодируем  параметры для передачи в CMR
-                    parametry = new URLSearchParams();
-                    let parJson= JSON.stringify(myObjParm);
-                    parametry.append('prm',parJson);
-                    // create frame for CMR
-                    iframeHTML = `<iframe frameborder="0" width="700" height="1098" src="./country/${myObjParm.kraj[0].name}.html?${parametry}"></iframe><br>`;
-                    for (var i=0;i<5;i++) {
-                        document.write(iframeHTML);         
-                    }
-                    //  1 Kwit paletowy
-                    //кодируем  параметры для передачи в Kwit Paletowy
-                    // parametry=`krajValue=GR&prmPalety=99&kodKP=2469`;
-                    tt1=myObjParm.kraj[0];
-					//console.log(
-                    parametry=`krajValue=${tt1.name}&prmPalety=${tt1.ilepalet}&kodKP=${Number(queryKray.kodkp)+numTmp}&prmData=${queryKray.data}`;
-                    // let strTemp=findKraj(tt1.name,1);
-                    // let krajValue = strTemp<0?"SAMEDAY RO":arrKrajSin[strTemp][0];
-                    // allKodKP.push([`${data1now(false)}/${krajValue}/KP${Number(kodKP)+numTmp}`])
-					numTmp++;
-                    // parametry=
-                    iframeHTML = `<iframe frameborder="0" width="700" height="1150" src="kwit.html?${parametry}"></iframe>`;
-                    document.write(iframeHTML); 
+            if (arr.length<1) {
+                    window.alert(`не заполнены данные`);
+                    window.close();
                 }
-        //  2 CMR  na Dodatok
-            // iframeHTML = `<p> Kray = ${kraj[0]}, Paczek = ${kraj[1]}, Palet = ${kraj[2]}</p>`;
-            iframeHTML = `<iframe frameborder="0" width="700" height="1100" src="./country/dodatekLCL.html?${urlParams}"></iframe>`
-            document.write(iframeHTML); 
-            document.write(iframeHTML); 
+            arr.map((a,index)=>{
+                if(a.name===''||a.name===' ') {
+                    window.alert(`В комплекте ${index+1} не указана страна`);
+                    window.close();
+                }
+                if(a.ilepaczek<1) {
+                    window.alert(`В комплекте ${index+1} не указана количество пачек`);
+                    window.close();
+                }
+            })
+            // create kod KP
+            let numTmp=0;
+            //  create page 
+            //  create  iframe for arrKrajs for all
+                //  5 CMR  na 1 kraj
+                    for (kraj of arr){
+                        if (!kraj.printed) continue; // пропускаем если снята галочка печатать
+                        //create  obj for one cmr
+                        const myObjParm = {
+                            brama: brama,
+                            kraj:[{
+                                ilepaczek:kraj.ilepaczek,
+                                ilepalet:kraj.ilepalet,
+                                name:kraj.name,
+                                printed:kraj.printed
+                            }],
+                            nrRef:nrRef,
+                            plomba: nrPlomby
+                        };
+                        //кодируем  параметры для передачи в CMR
+                        parametry = new URLSearchParams();
+                        let parJson= JSON.stringify(myObjParm);
+                        parametry.append('prm',parJson);
+                        // create frame for CMR
+                        iframeHTML = `<iframe frameborder="0" width="700" height="1098" src="./country/${myObjParm.kraj[0].name}.html?${parametry}"></iframe><br>`;
+                        for (var i=0;i<5;i++) {
+                            document.write(iframeHTML);         
+                        }
+                        //  1 Kwit paletowy
+                        //кодируем  параметры для передачи в Kwit Paletowy
+                        // parametry=`krajValue=GR&prmPalety=99&kodKP=2469`;
+                        tt1=myObjParm.kraj[0];
+                        parametry=`krajValue=${tt1.name}&prmPalety=${tt1.ilepalet}&kodKP=${Number(queryKray.kodkp)+numTmp}&prmData=${queryKray.data}`;
+                        numTmp++;
+                        // parametry=
+                        iframeHTML = `<iframe frameborder="0" width="700" height="1150" src="kwit.html?${parametry}"></iframe>`;
+                        document.write(iframeHTML); 
+                    }
+            //  2 CMR  na Dodatok
+                // iframeHTML = `<p> Kray = ${kraj[0]}, Paczek = ${kraj[1]}, Palet = ${kraj[2]}</p>`;
+                iframeHTML = `<iframe frameborder="0" width="700" height="1100" src="./country/dodatekLCL.html?${urlParams}"></iframe>`
+                document.write(iframeHTML); 
+                document.write(iframeHTML); 
 		window.print();
       </script>  
     </body>

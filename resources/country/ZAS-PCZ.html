@@ -998,7 +998,7 @@
     </tr>
     <tr>
       <td></td><td></td><td></td>
-      <td colspan="23">Wzór CMR/IRU/Polska z 1976 dla międzynarodowych przewozów drogowych odpowiada ustaleniom, które zostały 
+      <td colspan="23" class="s19">Wzór CMR/IRU/Polska z 1976 dla międzynarodowych przewozów drogowych odpowiada ustaleniom, które zostały 
         dokonane przez Międzynarodową Unię Transportu Drogowego/IRU/.</td>
     </tr>
     </tbody>
@@ -1015,26 +1015,7 @@
     const jsonData = urlParams.get("prm");
     const queryKray = JSON.parse(jsonData);
     
-    if(queryKray.kraj[0].ilepaczek<1||queryKray.kraj[0].ilepalet<1){
-      window.alert("не указано кол-во палет или пачек");
-      window.close();
-    }
-
-    let strTmp=isPresent(queryKray.nrRef).replace(/\+/g, " ");
-    document.querySelector("#nrref").innerHTML=strTmp;
-    //document.querySelector("#plomba").innerHTML=isPresent(queryKray.plomba);
-    //document.querySelector("#brama").innerHTML=isPresent(queryKray.brama);
-	document.querySelector("#plomba").innerHTML=' ';
-	document.querySelector("#brama").innerHTML=' ';
-    document.querySelector("#datafull").innerHTML=data1now();  
-    document.querySelector("#datasmall").innerHTML=data1now(false);    
-    document.querySelector("#waga").innerHTML=(queryKray.kraj[0].ilepaczek*1.3).toFixed(2);
-    // strTmp = isPresent(queryKray.kraj[0].name).split("-")[0];
-    // document.querySelector("#typ-palet1").innerHTML='econt BG';
-    document.querySelector("#suma").innerHTML=queryKray.kraj[0].ilepaczek;
-    document.querySelector("#ilekartonow1").innerHTML=queryKray.kraj[0].ilepaczek;
-    document.querySelector("#ilepaletJed").innerHTML=queryKray.kraj[0].ilepalet;
-    document.querySelector("#ilepaletGayL").innerHTML=queryKray.kraj[0].ilepalet;
+    writeOBJtoCMR(queryKray);
 </script>
   
 </body>

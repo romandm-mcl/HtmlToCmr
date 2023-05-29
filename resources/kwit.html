@@ -865,14 +865,15 @@
             // вводные данные
             const params = new URLSearchParams(window.location.search);
             // куда едет
-            let strTemp=findKraj(isPresent(params.get("krajValue")),1);
+            // let strTemp=findKraj(isPresent(params.get("krajValue")),1);
 
-            let krajValue = strTemp<0?"SAMEDAY RO":arrKrajSin[strTemp][0];
+            // let krajValue = strTemp<0?"SAMEDAY RO":arrKrajSin[strTemp][0];
+            let krajValue=findKraj(isPresent(params.get("krajValue")),1);
             //  сколько палет
             let iloscPalet = isPresent(params.get("prmPalety")," ");
             let kodKP = isPresent(params.get("kodKP"),2469);
             // let strBarcode = isPresent(params.get("strBarcode"),"10.04.2023/ROGLS/KP2469");
-            let strBarcode=data1now(false)+"/"+params.get("krajValue")+"/KP"+kodKP;
+            let strBarcode=data1now(false)+"/"+params.get("krajValue").toUpperCase()+"/KP"+kodKP;
             document.getElementById("kod-kp").innerHTML = kodKP;
             document.getElementById("currentFullTime").innerHTML=data1now();
             document.getElementById("ilocspalet").innerHTML = iloscPalet;

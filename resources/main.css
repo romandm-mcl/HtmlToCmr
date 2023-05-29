@@ -5,7 +5,23 @@
 body{
     margin: 10px;
     /* text-align: center; */
+   
 }
+ #main1{
+    display: flex;
+   
+    width: 70%;
+}
+article{
+    flex: 1;
+    height: 90%;
+    background-color: blanchedalmond;
+    display: block;
+}
+article:first-child{
+    flex:2;
+}
+
 label {
     display: block;
     /* width: 200px; */
@@ -34,8 +50,13 @@ legend {
 .hidden {
   display: none;
 }
-
-
+.otvety{
+    background-color: aqua;
+}
+#forMemories{
+    border: 1px solid black;
+    height: inherit;
+}
 .input-checkbox{
     float: right;
     margin: 5px;
@@ -62,4 +83,32 @@ input{
     font-weight: bold;
     font-size: 16pt;
     border-radius: 10px;
+}
+#rbut{
+    display: flex;
+    align-items: center;
+  justify-content: space-around;
+}
+
+.btn-action {
+    background-color: #e0e5ea;
+    padding: 4px 5px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 4px;
+    /* transition: opacity 0.2s ease-in; */
+    /* opacity: 0.5; */
+
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-action:hover {
+    background-color: #e0e5ea;
+    /* opacity: 1; */
+}
+
+.btn-action img {
+  pointer-events: none;
 }
