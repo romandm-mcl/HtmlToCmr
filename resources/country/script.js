@@ -14,8 +14,8 @@ const objCMR={ //
 	
   }
 
-let memoriesList =[];  ///array  for mem
-
+let memoriesList = [];  ///array  for mem
+let submitCalc = '';
 const arrKrajSin=[
     ["BG SPEEDY CZWARTEK PIĄTEK","BG-CP"],
     ["BG SPEEDY SOBOTA-ŚRODA","BG-SS"],
@@ -44,7 +44,7 @@ function getAllKodKP(objCMR){
     const item=objCMR.kraj;
     for( i=0; i<item.length;i++){
         if (item[i].name==='') continue;
-        result.push(`${objCMR.data}/${item[0].name}/KP${Number(objCMR.kodkp)+i}`);
+        result.push(`${objCMR.data}/${item[i].name}/KP${Number(objCMR.kodkp)+i}`);
     }
     // return result.toString().replace(/,/g," ");
     return result;
@@ -81,7 +81,7 @@ function findKraj(a='',index=0) {
         // const indexKraj=findKraj(div_array[i].querySelector('#country').value);
         //const word =  result < 0 ?'':arrKrajSin[result][(1-Number(index))];
         return result < 0 ?'':arrKrajSin[result][(1-Number(index))];
-    }
+}
 
 function data1now(full=true){
     var currentTime = new Date();
@@ -199,8 +199,6 @@ function renderMemoriesHTML(ObjParm,together=true){
     const idMem = ObjParm.id;
     const arrTemp=ObjParm.memy.kraj;
     const arrKKP= getAllKodKP(ObjParm.memy);
-    //  console.log(arrTemp);
-    //  console.log(arrKKP);
     
     // header 
     let memHTML1 = `
@@ -249,7 +247,6 @@ function renderMemoriesHTML(ObjParm,together=true){
     // memories.insertAdjacentHTML('beforeend',memHTML);
     return memHTML1 + memHTML2 + memHTML3;
 }
-
 
 function selectTypMemoryVisial(event){
     // console.log(event.target.dataset.action)
@@ -333,31 +330,39 @@ function removeForm(event){
 	
 }
 
+function addMyEvent(parent,str,dellaj,tfunction){
+    let inputs = parent.querySelectorAll(str);
+    inputs.forEach(input => {
+        input.value='';
+        input.addEventListener(dellaj, tfunction);
+        });
+}
+
 function cloneForm() {
     // форма
-    var form = document.forms[0];
+        var form = document.forms[0];
     // клонируем
-    var new_form = form.cloneNode(true);
+        var new_form = form.cloneNode(true);
     // new_form.querySelector('#country').value='';
     // new_form.querySelector('#box-quantity').value='';
     // new_form.querySelector('#pallet-quantity').value='';
     new_form.querySelector('#legenda').innerHTML='Komplet '+(document.forms.length);
-   new_form.classList.remove("hidden");
-    let inputs = new_form.querySelectorAll('input:not([type="checkbox"])');
-    inputs.forEach(input => {
-        input.value='';
-        input.addEventListener('change', writeAnwer);
-        });
-     
+    new_form.classList.remove("hidden");
+    new_form.name='Clone#'+document.forms.length;
+    // onchange inputy w forme
+        addMyEvent(new_form,'input:not([type="checkbox"])','change',writeAnwer);
+
+    // addMyEvent  remove Formu
+        addMyEvent(new_form,'#delete-form','click',removeForm);
+
+    // if click  na calculator
+        addMyEvent(new_form,'#calculator','click',calculator);
+        addMyEvent(new_form,'#cancel','click',closeCalcModal);
     // родитель формы
     var parent = form.parentNode;
+
     // вставляем новую форму в родительский контейнер
     parent.appendChild(new_form);
-	inputs=document.querySelectorAll('img');
-	 inputs.forEach(img => {
-        img.style.display='block';
-        img.addEventListener('click',removeForm);
-        });
 }
 
 function writeAnwer(){
@@ -374,14 +379,27 @@ function writeAnwer(){
         const str=item.name==='BG-ECONT'?'BGecont':item.name.split('-')[0];
         strany += `${str} - ${item.ilepalet} `;
     }
-    
-    document.querySelector('#suma-palet').innerHTML='Palety ' + sumPalet;
-    document.querySelector('#suma-korobok').innerHTML='Kartony ' + sumKorobok;
-    document.querySelector('#strany').innerHTML=strany;
+    isEmpty();
+    document.querySelector('#suma-palet').innerHTML='Palety: ' + sumPalet;
+    document.querySelector('#suma-korobok').innerHTML='Kartony: ' + sumKorobok;
+    document.querySelector('#strany').innerHTML='Strany: '+strany;
+}
+
+function isEmpty(){
+    const artMain = document.querySelector('#formCreatCMR');
+    let allInputy = artMain.querySelectorAll('input[type="text"], input[type="number"]');
+    allInputy.forEach((item)=>{
+        // console.log(item.id+"  = "+item.value);
+        if (item.value ===''){
+            item.classList.remove('no-empty-green');
+        }else{
+            item.classList.add('no-empty-green');
+        }
+    });
     
 }
 
-function  readingALLQuery(){
+function readingALLQuery(){
     let newObjQuery = Object.create(objCMR);
     newObjQuery.plomba = document.querySelector('#plomb-number').value;
     newObjQuery.nrRef = document.querySelector('#ref-auto').value;
@@ -416,6 +434,71 @@ function  readingALLQuery(){
     return newObjQuery;
 }
 
+function calculator(event){
+    if (event.target.id !== 'calculator') return;
+    // console.dir(event.target);
+    const parentNode = event.target.closest('span');
+    const myDiv = parentNode.childNodes[3];
+    submitCalc = myDiv;
+    showCalcModal();
+ }
+
+function showCalcModal(){
+    const modal = document.getElementById('modal');
+    const overlay = document.getElementById('overlay');
+    const body = document.body;
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+    body.style.overflow = 'hidden'; // Блокировка прокрутки страницы
+    const tValue=(submitCalc.value===0||submitCalc.value==='')?'':submitCalc.value;
+    document.getElementById('calc-input').value=tValue;
+    modal.querySelector('#calc-input').focus();
+    modal.addEventListener('click',clickOverlay);
+    modal.addEventListener('keydown',clickKey);
+}
+
+function clickOverlay(event){
+    if (event.target.id === 'modal') {
+        closeCalcModal();
+      }
+}
+
+function closeCalcModal(){
+    
+    const modal = document.getElementById('modal');
+    const overlay = document.getElementById('overlay');
+    const body = document.body;
+    modal.style.display = 'none';
+    overlay.style.display = 'none';
+    body.style.overflow = 'auto'; // Разблокировка прокрутки страницы
+    modal.removeEventListener('click',clickOverlay);
+}
+
+function clickKey(event){
+    const modal = document.getElementById('modal');
+    if (event.key === 'Enter' && modal.style.display === 'block') {
+        submitModalCalc();
+      }
+}
+
+function submitModalCalc(event){
+    closeCalcModal();
+    if(submitCalc==='')return
+    const subCalc = document.getElementById('calc-input').value;
+    const arrCalc= subCalc.toString().replace('=','').split('+');
+    let sumCalc=0;
+    for (let i = 0; i < arrCalc.length; i++) {
+        const num = parseFloat(arrCalc[i]);
+        if (!isNaN(num))  sumCalc += num;
+      }
+    // console.log(arrCalc);
+
+    submitCalc.value=sumCalc;
+    submitCalc.focus();
+    submitCalc='';
+    // subCalc.value='';
+}
+
 function startWork(){
     cloneForm();
     const memories = document.querySelector('#forMemories');
@@ -431,10 +514,9 @@ function startWork(){
             }
         );
     } 
-
-
+    const ulMy = document.querySelector('.main-input');
+    addMyEvent(ulMy,'input','change',writeAnwer);
     document.querySelector('#forMemories').addEventListener('click',deleteMem);
     document.querySelector('#forMemories').addEventListener('click',selectTypMemoryVisial);
 
 }
-
