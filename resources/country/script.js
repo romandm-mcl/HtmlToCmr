@@ -19,7 +19,7 @@ let submitCalc = '';
 const arrKrajSin=[
     ["BG SPEEDY CZWARTEK PIĄTEK","BG-CP"],
     ["BG SPEEDY SOBOTA-ŚRODA","BG-SS"],
-    ["BG ECONT","BG-ECONT"],
+    ["BG ECONT","BGecont"],
     // ["CH SWISSPOST","CH"],
     ["CZ ZAS PRAGA NEHVIZDY pn-czw","ZAS-PCZ"],
     ["CZ ZAS PT i ND (12:00)","ZAS-PN"],
@@ -54,7 +54,7 @@ function findKraj(a='',index=0) {
         const arrKrajSin=[
             ["BG SPEEDY CZWARTEK PIĄTEK","BG-CP"],
             ["BG SPEEDY SOBOTA-ŚRODA","BG-SS"],
-            ["BG ECONT","BG-ECONT"],
+            ["BG ECONT","BGecont"],
             // ["CH SWISSPOST","CH"],
             ["CZ ZAS PRAGA NEHVIZDY pn-czw","ZAS-PCZ"],
             ["CZ ZAS PT i ND (12:00)","ZAS-PN"],
@@ -111,7 +111,7 @@ function submitForm1(){
     const arrKrajSin=[
         ["BG SPEEDY CZWARTEK PIĄTEK","BG-CP"],
         ["BG SPEEDY SOBOTA-ŚRODA","BG-SS"],
-        ["BG ECONT","BG-ECONT"],
+        ["BG ECONT","BGecont"],
         ["CH SWISSPOST","CH"],
         ["CZ ZAS PRAGA NEHVIZDY pn-czw","ZAS-PCZ"],
         ["CZ ZAS PT i ND (12:00)","ZAS-PN"],
