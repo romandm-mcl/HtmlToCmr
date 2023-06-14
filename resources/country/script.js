@@ -1,4 +1,5 @@
-const objCMR={ // 
+const objCMR={  
+    kurier:'LCL',
     plomba:'',
     nrRef:'',
     brama:'',
@@ -96,60 +97,36 @@ function isPresent(a,ansv=''){
     return a?a:ansv;
 }
 
-function saveInLocalStorage() {
-	localStorage.setItem('memy', JSON.stringify(memoriesList))
+function checkEmptyFieldsForm(objAllForms={isEmpty:true}){
+    // если передан пустой объект , то аварийное завершение
+    if (objAllForms.isEmpty) return -1;
+    let result=false;//  если нет пустых полей - ответ false
+    
+    const arr = objAllForms.kraj;
+    // проверк  если вообще 
+    if (arr.length<1) {
+        window.alert(`не заполнены данные`);
+        result = true;
+        // window.close();
+    }
+    // показать сообщение где пустые поля
+    arr.forEach((a,index)=>{
+        if(a.name===''||a.name===' ') {
+            window.alert(`В комплекте ${index+1} не указана страна`);
+            // window.close();
+            result = true;
+        }
+        if(a.ilepaczek<1) {
+            window.alert(`В комплекте ${index+1} не указана количество пачек`);
+            // window.close();
+            result = true;
+        }
+    })
+    return result;
 }
 
-function submitForm1(){
-    var arrValues = [];
-    var div_list = document.querySelectorAll('form'); // returns NodeList
-    var div_array = Array.prototype.slice.call(div_list); // преобразует NodeList в Array
-    const plomba = document.querySelector('#plomb-number').value;
-    const nrRef = document.querySelector('#ref-auto').value;
-    const brama = document.querySelector('#brama').value;
-
-    const arrKrajSin=[
-        ["BG SPEEDY CZWARTEK PIĄTEK","BG-CP"],
-        ["BG SPEEDY SOBOTA-ŚRODA","BG-SS"],
-        ["BG ECONT","BGecont"],
-        ["CH SWISSPOST","CH"],
-        ["CZ ZAS PRAGA NEHVIZDY pn-czw","ZAS-PCZ"],
-        ["CZ ZAS PT i ND (12:00)","ZAS-PN"],
-        ["FR LA POSTE","FR"],
-        ["GR GENIKI","GR"],
-        ["ACS GR","GRacs"],
-        ["HR GLS","HR"],
-        ["HU GLS","HU"],
-        ["HU FOX","HUfox"],
-        ["IT BARTOLINI","ITbrt"],
-        ["LT DPD","LT"],
-        ["IT Inpost","LTinp"],
-        ["Sameday RO","ROsd"],
-        ["SI GLS","SI"],
-        ["RO GLS","RO"],
-        ["SK DPD Dolný Hričov","SK"],
-        ["ZIL SK/ ZAS SK","SKzas"]
-        ]
-    function findKraj(a='') {
-            let result = -1;
-                for (let j = 0; j < arrKrajSin.length; j++){
-                    if (arrKrajSin[j][0] === a) result = j;
-                    }     
-                return result;
-    }
-    //read all forms
-    for(var i=0;i<div_array.length;i++){
-        const indexKraj=findKraj(div_array[i].querySelector('#country').value);
-        const word =  indexKraj < 0 ? '':arrKrajSin[indexKraj][1];
-        // console.log(`${indexKraj}    ${word} `);    
-        const ilePalet=div_array[i].querySelector('#pallet-quantity').value;
-        const ilePaczek=div_array[i].querySelector('#box-quantity').value;
-        const printed=div_array[i].querySelector('#print').checked;
-        arrValues.push([word,ilePalet,ilePaczek,printed]);
-    }
-    let kodKP=2469;
-    var parametry = 'prmPlomba='+plomba+'&prmnrRef='+nrRef+'&kodKP='+kodKP+'&prmKrajs='+ arrValues.toString();
-    window.open("/resources/collector.html?" + parametry);
+function saveInLocalStorage() {
+	localStorage.setItem('memy', JSON.stringify(memoriesList))
 }
 
 function testcmr(){
@@ -287,13 +264,15 @@ function deleteMem(event){
 }
 
 function addNewMemories(myObjParm){
+    //check empty Kraj
+    
     // new  obj  for save in mem
     const newMem={
         id: Date.now(),
         name: data1now(),
         memy: myObjParm
     }
-    // console.log(newMem.memy.kraj)
+
     // add new memories in array memow
     memoriesList.push(newMem);
 
@@ -307,12 +286,20 @@ function addNewMemories(myObjParm){
 
 function submitForm(){
     const myObjParm = readingALLQuery();
+    // проверяем на пустые поля, если есть красим в красный и отменяем открытия страницы для печати
+    if (checkEmptyFieldsForm(myObjParm)){
+        markGreenRed(false);
+        return;
+    }
+    
     let parametry = new URLSearchParams();
     let parJson= JSON.stringify(myObjParm);
+    
     parametry.append('prm',parJson);
     window.open("./resources/collector.html?" + parametry);
 	document.querySelector('#kwit').innerHTML=getAllKodKP(myObjParm).toString().replace(/,/g," ");
     addNewMemories(myObjParm);
+    
 }
 
 function removeForm(event){
@@ -343,13 +330,10 @@ function cloneForm() {
         var form = document.forms[0];
     // клонируем
         var new_form = form.cloneNode(true);
-    // new_form.querySelector('#country').value='';
-    // new_form.querySelector('#box-quantity').value='';
-    // new_form.querySelector('#pallet-quantity').value='';
-    new_form.querySelector('#legenda').innerHTML='Komplet '+(document.forms.length);
-    new_form.classList.remove("hidden");
-    new_form.name='Clone#'+document.forms.length;
-    // onchange inputy w forme
+        new_form.querySelector('#legenda').innerHTML='Komplet '+(document.forms.length);
+        new_form.classList.remove("hidden");
+        new_form.name='Clone#'+document.forms.length;
+    // добавляем прослущку onchange для input-ов в forme
         addMyEvent(new_form,'input:not([type="checkbox"])','change',writeAnwer);
 
     // addMyEvent  remove Formu
@@ -379,24 +363,29 @@ function writeAnwer(){
         const str=item.name==='BG-ECONT'?'BGecont':item.name.split('-')[0];
         strany += `${str} - ${item.ilepalet} `;
     }
-    isEmpty();
+    markGreenRed();
     document.querySelector('#suma-palet').innerHTML='Palety: ' + sumPalet;
     document.querySelector('#suma-korobok').innerHTML='Kartony: ' + sumKorobok;
     document.querySelector('#strany').innerHTML='Strany: '+strany;
 }
 
-function isEmpty(){
+function markGreenRed(chek=true){
     const artMain = document.querySelector('#formCreatCMR');
     let allInputy = artMain.querySelectorAll('input[type="text"], input[type="number"]');
+    
     allInputy.forEach((item)=>{
         // console.log(item.id+"  = "+item.value);
         if (item.value ===''){
             item.classList.remove('no-empty-green');
+            if (!chek) {
+
+                item.classList.add('is-empty-red');
+            }
         }else{
             item.classList.add('no-empty-green');
+            item.classList.remove('is-empty-red');
         }
     });
-    
 }
 
 function readingALLQuery(){
@@ -409,16 +398,16 @@ function readingALLQuery(){
 	newObjQuery.data = data1now(false);
 	// read  all form
     let arrValues = [];
-    let div_list = document.querySelectorAll('form'); // returns NodeList
-    let div_array = Array.prototype.slice.call(div_list); // преобразует NodeList в Array
+    let div_list = document.querySelectorAll('form'); // получаем все элементы Form
+    let div_array = Array.prototype.slice.call(div_list); // преобразует в массив
     
+    // перебираем массив с создание объектов для каждой формы
     for(var i=0;i<div_array.length;i++){
-        // const indexKraj=findKraj(div_array[i].querySelector('#country').value);
-        // const word =  indexKraj < 0 ?'':arrKrajSin[indexKraj][1];
+        // поверка и сокращенная запись страны
         const word = findKraj(div_array[i].querySelector('#country').value);
-        // console.log(word);    
         const ilePalet=div_array[i].querySelector('#pallet-quantity').value;
         const ilePaczek=div_array[i].querySelector('#box-quantity').value;
+        // проверяем будет печататься эта страна в итоговом результате
         const printed=div_array[i].querySelector('#print').checked;
         arrValues.push({
             name:word,
@@ -441,6 +430,7 @@ function calculator(event){
     const myDiv = parentNode.childNodes[3];
     submitCalc = myDiv;
     showCalcModal();
+    markGreenRed();
  }
 
 function showCalcModal(){
@@ -472,6 +462,7 @@ function closeCalcModal(){
     overlay.style.display = 'none';
     body.style.overflow = 'auto'; // Разблокировка прокрутки страницы
     modal.removeEventListener('click',clickOverlay);
+    
 }
 
 function clickKey(event){
@@ -492,11 +483,12 @@ function submitModalCalc(event){
         if (!isNaN(num))  sumCalc += num;
       }
     // console.log(arrCalc);
-
+    
     submitCalc.value=sumCalc;
     submitCalc.focus();
+    markGreenRed();
     submitCalc='';
-    // subCalc.value='';
+    
 }
 
 function startWork(){

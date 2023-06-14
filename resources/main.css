@@ -153,6 +153,9 @@ span img{
     border: 2px solid rgb(41, 163, 25);
 }
 
+.is-empty-red{
+    border: 2px solid rgb(202, 17, 17);
+}
 
 .input-checkbox, .img-trash{
     margin: 5px;

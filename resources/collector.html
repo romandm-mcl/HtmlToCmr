@@ -7,13 +7,16 @@
         <title>Druk CMR</title>
         <script src="./country/script.js"></script>
         <style type="text/css">
-		*{
-		margin: 0;
-		}
+            *{
+                margin: 0;
+            }
              iframe {
-				 margin: 5px;
-                frameborder: 0px;
-                scrolling: no;
+				/* margin: 5px; */
+                
+                /* height: 100%; */
+                width: 100%;
+                /* frameborder: 0px; */
+                /* scrolling: no; */
 				page-break-after: always;
             } 
         </style>
@@ -77,7 +80,8 @@
                         let parJson= JSON.stringify(myObjParm);
                         parametry.append('prm',parJson);
                         // create frame for CMR
-                        iframeHTML = `<iframe frameborder="0" width="700" height="1098" src="./country/${myObjParm.kraj[0].name}.html?${parametry}"></iframe><br>`;
+                        // iframeHTML = `<iframe frameborder="0" width="700" height="1098" src="./country/${myObjParm.kraj[0].name}.html?${parametry}"></iframe>`;
+                        iframeHTML = `<iframe frameborder="0" height="1100" src="./country/${myObjParm.kraj[0].name}.html?${parametry}"></iframe>`;
                         for (var i=0;i<5;i++) {
                             document.write(iframeHTML);         
                         }
@@ -88,12 +92,12 @@
                         parametry=`krajValue=${tt1.name}&prmPalety=${tt1.ilepalet}&kodKP=${Number(queryKray.kodkp)+numTmp}&prmData=${queryKray.data}`;
                         numTmp++;
                         // parametry=
-                        iframeHTML = `<iframe frameborder="0" width="700" height="1150" src="kwit.html?${parametry}"></iframe>`;
+                        iframeHTML = `<iframe frameborder="0"  height="1100" src="kwit.html?${parametry}"></iframe>`;
                         document.write(iframeHTML); 
                     }
             //  2 CMR  na Dodatok
                 // iframeHTML = `<p> Kray = ${kraj[0]}, Paczek = ${kraj[1]}, Palet = ${kraj[2]}</p>`;
-                iframeHTML = `<iframe frameborder="0" width="700" height="1100" src="./country/dodatekLCL.html?${urlParams}"></iframe>`
+                iframeHTML = `<iframe frameborder="0" height="1100" src="./country/dodatekLCL.html?${urlParams}"></iframe>`
                 document.write(iframeHTML); 
                 document.write(iframeHTML); 
 		window.print();
