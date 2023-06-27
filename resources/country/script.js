@@ -292,6 +292,7 @@ function submitForm(){
         return;
     }
     
+	
     let parametry = new URLSearchParams();
     let parJson= JSON.stringify(myObjParm);
     
@@ -299,13 +300,14 @@ function submitForm(){
     window.open("./resources/collector.html?" + parametry);
 	document.querySelector('#kwit').innerHTML=getAllKodKP(myObjParm).toString().replace(/,/g," ");
     addNewMemories(myObjParm);
-    
+    clearAllInput();
+	
 }
 
 function removeForm(event){
 	const komplet=event.target.closest('fieldset').childNodes[1].innerHTML;
 	//console.log(komplet);
-	if(window.confirm(`Вы точно хотите удалить этот комплект " ${komplet}"?`)){
+	if(window.confirm(`Zdecydowanie chcesz usunąć ten komplet " ${komplet}"?`)){
 	 const formToDelete = event.target.closest('form');
 	 formToDelete.remove();
 	}
@@ -422,7 +424,13 @@ function readingALLQuery(){
 	});
     return newObjQuery;
 }
-
+function clearAllInput(){
+	const artMain = document.querySelector('#formCreatCMR');
+    let allInputy = artMain.querySelectorAll('input[type="text"], input[type="number"]');
+	allInputy.forEach((item)=>{item.value=''}
+	);
+	markGreenRed();
+}
 function calculator(event){
     if (event.target.id !== 'calculator') return;
     // console.dir(event.target);
