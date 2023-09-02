@@ -18,6 +18,10 @@ body{
 .active {
   display: block;
 }
+/* for memories ----------------------------------- */
+#forMemories{
+  max-width: max-content;
+}
 
 /* header NAV --------------------------------------*/
   .header-nav,.header-nav ul{
@@ -124,12 +128,13 @@ article{
   width: max-content;
   max-height: inherit;
   border:  2px solid rgb(97, 57, 8);
+  min-width: 6em;
 }
 .radio-button-list ul{
   /* display: flex; */
   flex-direction: column;
   /* flex: auto; */
-  width: max-content;
+  width: 100%;
 }
 .radio-button-list li{
   text-align: right;

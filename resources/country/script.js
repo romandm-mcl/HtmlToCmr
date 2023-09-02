@@ -17,6 +17,7 @@ const objCMR={
 
 let memoriesList = [];  ///array  for mem
 let submitCalc = '';
+let activeKurier = 'cmr-lcl';
 const arrKrajSin=[
     ["BG SPEEDY CZWARTEK PIĄTEK","BG-CP"],
     ["BG SPEEDY SOBOTA-ŚRODA","BG-SS"],
@@ -285,6 +286,12 @@ function addNewMemories(myObjParm){
 }
 
 function submitForm(){
+    var myWindow = window.open("","_blank", "width=600,height=600");
+    myWindow.document.write(`<p> current kurier: ${activeKurier}</p>`);
+    myWindow.document.write(`<button onclick="window.close()">Close</button>`);
+}
+
+function submitFormOld(){
     const myObjParm = readingALLQuery();
     // проверяем на пустые поля, если есть красим в красный и отменяем открытия страницы для печати
     if (checkEmptyFieldsForm(myObjParm)){
@@ -372,7 +379,7 @@ function writeAnwer(){
 }
 
 function markGreenRed(chek=true){
-    const artMain = document.querySelector('#formCreatCMR');
+    const artMain = document.querySelector('#cmr-lcl');
     let allInputy = artMain.querySelectorAll('input[type="text"], input[type="number"]');
     
     allInputy.forEach((item)=>{
@@ -391,10 +398,12 @@ function markGreenRed(chek=true){
 }
 
 function readingALLQuery(){
+    const chekLLCLactive=document.querySelector('#cmr-lcl');
+    if (chekLLCLactive.className==='hidden') return false;
     let newObjQuery = Object.create(objCMR);
-    newObjQuery.plomba = document.querySelector('#plomb-number').value;
-    newObjQuery.nrRef = document.querySelector('#ref-auto').value;
-    newObjQuery.brama = document.querySelector('#brama').value;
+    newObjQuery.plomba = document.querySelector('#plomb-number-lcl').value;
+    newObjQuery.nrRef = document.querySelector('#ref-auto-lcl').value;
+    newObjQuery.brama = document.querySelector('#brama-lcl').value;
 	let tt1=data1now().toString().split(" ")[1].toString();
 	newObjQuery.kodkp = Number(tt1.replace(/:/g,''));
 	newObjQuery.data = data1now(false);
@@ -500,21 +509,51 @@ function submitModalCalc(event){
 
 function navkurbuttonclick(event){
     const buttonclk=event.target.innerHTML;
-    // " ".toLowerCase
     const curentButton = `cmr-${buttonclk.toLowerCase()}`;
     const sectionMain=document.querySelector('#main1');
     const artKurierow=sectionMain.querySelectorAll('article');
     // console.log(artKurierow);
     artKurierow.forEach((artItem)=>{
-        artItem.classList.add('hidden');
-        artItem.classList.remove('active');
+        artItem.className = 'hidden';
         if(artItem.id===curentButton||artItem.id==='forMemories'){
-            artItem.classList.remove('hidden');
-            artItem.classList.add('active');
+            artItem.className = 'active';
+            activeKurier = curentButton;
         }
     });
     
 }
+
+function radioButtonclick(event){
+    const buttonclk=event.target.id;
+    
+    const kurier = '#country-'+buttonclk.split('-')[0];
+    // console.log(buttonclk);
+    let item;
+    switch (buttonclk){
+        case  'dhl-de-6':
+        case  'dhl-de-14':
+        case  'dhl-sees': 
+            document.querySelector('#de-act').className='hidden';
+            document.querySelector('#sees-act').className='hidden';
+            if (buttonclk==='dhl-sees')document.querySelector('#sees-act').className='sees-selected';
+            else document.querySelector('#de-act').className='de-selected';
+            break;
+        case 'transsped-lt':
+        case 'transsped-lv':
+        case 'transsped-ch':
+            document.querySelector('#trans-ltlv-act').className='hidden';
+            document.querySelector('#trans-ch-act').className='hidden';
+            if (buttonclk==='transsped-ch')document.querySelector('#trans-ch-act').className='trans-ch-selected';
+            else document.querySelector('#trans-ltlv-act').className='trans-selected';
+            break;
+        default: 
+             break;
+    }
+    item = document.querySelector('#'+buttonclk).parentNode.innerText.trimEnd();
+    // console.log(`Country (${kurier})= ${item}.  `);
+    document.querySelector(kurier).value = item;
+}
+
 function startWork(){
     cloneForm();
     const memories = document.querySelector('#forMemories');
@@ -532,8 +571,10 @@ function startWork(){
     } 
     const ulMy = document.querySelector('.main-input');
     // addMyEvent(ulMy,'input','change',writeAnwer);
-    const navbutton = document.querySelector('.nav-kurierow');
-    addMyEvent(navbutton,'button','click',navkurbuttonclick);
+    let tmpbutton = document.querySelector('.nav-kurierow');
+    addMyEvent(tmpbutton,'button','click',navkurbuttonclick);
+    tmpbutton = document.querySelector('.main1');
+    addMyEvent(tmpbutton,'input[type="radio"]','click',radioButtonclick);
     document.querySelector('#forMemories').addEventListener('click',deleteMem);
     document.querySelector('#forMemories').addEventListener('click',selectTypMemoryVisial);
 

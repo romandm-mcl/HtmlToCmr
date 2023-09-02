@@ -35,7 +35,7 @@
     <hr>
     <div id="main-buttons" class="main-buttons">
       <input type="button" id="refresh" class="main-button"value="Reset" onclick="location.reload()">
-      <input type="button" id="druk-button-dpd" class="druk-button" value="DRUKUJ CMR">
+      <input type="button" id="druk-button-dpd" class="druk-button" value="DRUKUJ CMR" onclick="submitForm()">
     </div>
     <hr>
     <section id="main1" class="main1">
@@ -194,11 +194,11 @@
             <div class="radio-button-list">
               <ul>
                 <li>
-                  <label for="dhl-de-6">DE 6:00</label>
+                  <label for="dhl-de-6">DHL DE 6:00</label>
                   <input type="radio" id="dhl-de-6" name="dhl" value="city" />
                 </li>
                 <li>
-                  <label for="dhl-de-14">DE 14:00</label>
+                  <label for="dhl-de-14">DHL DE 14:00</label>
                   <input type="radio" id="dhl-de-14" name="dhl" value="city" />
                 </li>
                 <li>
@@ -216,13 +216,13 @@
               <input type="number" id="brama-dhl" name="brama-dhl" min="1" max="35" value="">
               <label for="country-dhl">Kraj:</label>
               <input type="text" id="country-dhl" name="country-dhl" list="dhlList" required="required" value="">
-              <div class="de-selected">
+              <div id="de-act" class="hidden">
                 <label for="ipaczki-dhl">ilosc paczek:</label>
                 <input type="number" id="ipaczki-dhl" name="ipaczki-dhl" min="0" max="9999" value="">
                 <label for="ipalety-dhl">ilosc palet:</label>
                 <input type="number" id="ipalety-dhl" name="ipalety-dhl" min="0" max="60" value="">
               </div>
-              <div class="sees-selected">
+              <div id="sees-act" class="hidden">
                 <textarea name="sees-selected" id="sees-selected" cols="30" rows="5" 
                 placeholder="Items                  | Pal. | Paczki                 Palety DHL		9                 ESSE KOSHE		4       266"></textarea>
               </div>
@@ -246,7 +246,7 @@
             <option value="Inpost GOW">
           </datalist>
           <div id="kurier-box" class="kurier-box">
-            <div id="selectkrajinpost" class="radio-button-list">
+            <div class="radio-button-list">
               <ul>
                 <li>
                   <label for="inpost-zg">Inpost ZG</label>
@@ -269,16 +269,24 @@
                   <input type="radio" id="inpost-wr3" name="inpost" value="city" />
                 </li>
                 <li>
+                  <label for="inpost-pz2">Inpost PZ2</label>
+                  <input type="radio" id="inpost-pz2" name="inpost" value="city" />
+                </li>
+                <li>
                   <label for="inpost-pz3">Inpost PZ3</label>
                   <input type="radio" id="inpost-pz3" name="inpost" value="city" />
                 </li>
                 <li>
-                  <label for="inpost-pz2">Inpost PZ3</label>
-                  <input type="radio" id="inpost-pz3" name="inpost" value="city" />
+                  <label for="inpost-poz">Inpost POZ</label>
+                  <input type="radio" id="inpost-poz" name="inpost" value="city" />
                 </li>
                 <li>
                   <label for="inpost-wro">Inpost WRO</label>
                   <input type="radio" id="inpost-wro" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-opo">Inpost OPO</label>
+                  <input type="radio" id="inpost-opo" name="inpost" value="city" />
                 </li>
                 <li>
                   <label for="inpost-leszno">Inpost LESZNO</label>
@@ -307,11 +315,6 @@
               <input type="number" id="kosze" name="kosze" min="0" max="60" value="">
             </div>
           </div>
-          <!-- <hr> -->
-          <!-- <div id="main-buttons" class="main-buttons">
-            <input type="button" id="refresh" class="main-button"value="Reset" onclick="location.reload()">
-            <input type="button" id="druk-button" class="druk-button" value="DRUKUJ CMR">
-          </div> -->
         </article>
         <article id="cmr-transsped" class="hidden">
           <h2>Quick create CMR  for Transsped</h2>
@@ -346,13 +349,13 @@
               <input type="number" id="brama-transsped" name="brama-transsped" min="1" max="35" value="">
               <label for="country-transsped">Kraj:</label>
               <input type="text" id="country-transsped" name="country-transsped" list="transspedList" required="required" value="">
-              <div class="trans-selected">
+              <div id="trans-ltlv-act" class="hidden">
                 <label for="ipaczki-trans">ilosc paczek:</label>
                 <input type="number" id="ipaczki-trans" name="ipaczki-trans" min="0" max="9999" value="">
                 <label for="ipalety-trans">ilosc palet:</label>
                 <input type="number" id="ipalety-trans" name="ipalety-trans" min="0" max="60" value="">
               </div>
-              <div class="trans-ch-selected">
+              <div id="trans-ch-act" class="hidden">
                 <textarea name="trans-ch-palety" id="trans-ch-palety" cols="30" rows="9" 
                 placeholder="nr. palety | Paczki     132806402/08/2023/01	78                132846326/08/2023/01	41                132868770/09/2023/01	47               132869261/09/2023/01	57"></textarea>
                 <textarea name="trans-ch-waga" id="trans-ch-selected" cols="30" rows="9" 
