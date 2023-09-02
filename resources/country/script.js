@@ -520,7 +520,6 @@ function navkurbuttonclick(event){
             activeKurier = curentButton;
         }
     });
-    
 }
 
 function radioButtonclick(event){
