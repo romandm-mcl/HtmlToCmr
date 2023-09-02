@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Сохранение данных в файл</title>
+</head>
+<body>
+    <button onclick="saveToFile()">Сохранить данные в файл</button>
+
+    <script>
+        function saveToFile() {
+            const params = {
+                param1: 'значение1',
+                param2: 'значение2',
+                // Добавьте другие параметры по необходимости
+            };
+
+            const data = JSON.stringify(params);
+            const blob = new Blob([data], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'params.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

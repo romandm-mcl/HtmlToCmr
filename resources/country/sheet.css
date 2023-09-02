@@ -2,30 +2,48 @@
 body{
   margin: 10px;
 }
-td {
+
+h1{
+  margin: 0;
+  font-size: 19pt;
+  text-align: center;
+  font-weight: bold;
+}
+.conteiner{
+  margin: 0 auto;
   color: black;
   vertical-align: middle;
   font-family: "Arial";
   text-align: left;
   font-size: 6pt;
- 
+  display: flex;
+  /* background: rgb(68, 66, 66); */
+}
+.left-column{
+  display: flex;
+  height: inherit;
+  /* background-color: aqua; */
+  /* justify-content: center; */
+  white-space: nowrap; /* Запрещаем перенос текста */
+  writing-mode: vertical-rl; /* Поворот текста на 90 градусов */
+  transform: rotate(180deg);
+}
+.white-text{
+  color: white;
 }
 
-.rotated-text__inner{
-  display: inline-block;
-  white-space: nowrap;
-  width: 1em;
-  line-height: 1.5;
-  transform: translate(0,100%) rotate(270deg);
-  transform-origin: 0 0;
+.left-column div{
+  width: max-content;
+  /* background: rgb(144, 171, 211); */
+  margin: 5px;
 }
-.rotated-text__inner_a{
-  display: inline-block;
-  white-space: nowrap;
-  width: 1em;
-  line-height: 1.5;
-  transform: translate(0,100%) rotate(90deg);
-  transform-origin: 0 0;
+.right-column{
+  margin-left: 2px;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  white-space: nowrap; 
+  writing-mode: vertical-rl; /* Поворот текста на 90 градусов */
 }
 
 .border-top-table{
@@ -41,9 +59,8 @@ td {
   border-bottom: 1px solid black;
 }
 
-
-.th-a{width: 24px;}
-.th-b{width: 11px;}
+/* .th-a{width: 24px;} */
+/* .th-b{width: 11px;} */
 .th-c{width: 26px;}
 .th-d{width: 57px;}
 .th-e{width: 49px;}
@@ -64,10 +81,10 @@ td {
 .th-t{width: 28px}
 .th-u{width: 38px}
 .th-v{width: 30px}
-.th-w{width: 37px}
+.th-w{width: 32px}
 .th-x{width: 33px}
-.th-y{width: 11px}
-.th-z{width: 11px}
+/* .th-y{width: 11px}
+.th-z{width: 11px} */
 
 .s1{
   text-align: center;
@@ -120,7 +137,7 @@ td {
 }
 .s17{
   width: inherit;
-  height: 17px;
+  height: 15px;
   padding: 1px;
   vertical-align: middle;
 }
@@ -132,4 +149,8 @@ td {
 .s19{
   font-size: 5pt;
   text-align: center;
+}
+
+.inp-ref{
+  width: 90%;
 }
