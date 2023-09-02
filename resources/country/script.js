@@ -286,8 +286,17 @@ function addNewMemories(myObjParm){
 }
 
 function submitForm(){
-    var myWindow = window.open("","_blank", "width=600,height=600");
+
+    let myWindow = window.open("","_blank", "width=600,height=600");
+    const cmrArtKurier = document.querySelector('#'+activeKurier);
+    let nameR = activeKurier.split('-')[1].trimEnd();
+    let item = cmrArtKurier.querySelector(`input[name="${nameR}"]:checked`);
+    // let valueR = item==null ? 'pusto' : item.parentNode.innerText.trimEnd();
+    let cmr4druk = item==null ? 'pusto' : item.id;
+    let arrInput = cmrArtKurier.querySelector('.input-box').querySelectorAll('input');
+    console.log(arrInput);
     myWindow.document.write(`<p> current kurier: ${activeKurier}</p>`);
+    myWindow.document.write(`<p> Kurier kraj: ${cmr4druk}</p>`);
     myWindow.document.write(`<button onclick="window.close()">Close</button>`);
 }
 
@@ -568,7 +577,7 @@ function startWork(){
         );
         memories.classList.add('active');
     } 
-    const ulMy = document.querySelector('.main-input');
+    // const ulMy = document.querySelector('.main-input');
     // addMyEvent(ulMy,'input','change',writeAnwer);
     let tmpbutton = document.querySelector('.nav-kurierow');
     addMyEvent(tmpbutton,'button','click',navkurbuttonclick);
