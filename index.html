@@ -10,42 +10,45 @@
     <script src="./resources/country/script.js"></script>
 </head>
 <body>
-    <header>
-       <nav>
-        <a href="/">CMR&QRkode&PK</a>
-        <ul>
+    <header class="header">
+       <nav id="header-nav" class="header-nav">
+          <a href="/">CMR&QRkode&PK</a>
+          <ul>
           <li>CMR</li>
           <li>QR kode</li>
           <li>Paletowy Kwit</li>
           <li>Settings</li>
-        </ul>
+          </ul>
        </nav>
        <hr>
     </header>
-    <section id="main1">
-        <article id="formCreatCMR">
+    <nav id="nav-kurierow" class="nav-kurierow">
+      <button id="btn-lcl" class="btn-lcl" >LCL</button>
+      <button id="btn-dpd" class="btn-dpd" >DPD</button>
+      <button id="btn-dhl" class="btn-dhl" >DHL</button>
+      <button id="btn-inpost" class="btn-inpost">Inpost</button>
+      <button id="btn-transsped" class="btn-transsped" >Transsped</button>
+      <button id="btn-ppl" class="btn-ppl">PPL</button>
+      <button id="btn-venipack" class="btn-venipack">VENIPACK</button>
+      <button id="btn-inne" class="btn-inne">Inne</button>
+    </nav>
+    <hr>
+    <div id="main-buttons" class="main-buttons">
+      <input type="button" id="refresh" class="main-button"value="Reset" onclick="location.reload()">
+      <input type="button" id="druk-button-dpd" class="druk-button" value="DRUKUJ CMR">
+    </div>
+    <hr>
+    <section id="main1" class="main1">
+        <article id="cmr-lcl" class="active">
             <h2>Quick create CMR  for  LCL</h2>
-            <div class="block-button">
-                <input type="button" id="add-kraj" class="main-button" value="Dodać komplet" onclick="cloneForm()">
-                <input type="button" id="refresh" class="main-button"value="Reset" onclick="location.reload()">
-                <input type="submit" id="submit-button" class="main-button"value="DRUKUJ CMR" onclick="submitForm()">
-                <!-- <input type="button" id="testcmr" value="testcmr" onclick="testcmr()"> -->
+            <div class="input-box">
+                <label for="plomb-number-lcl">Numer plomby:</label>
+                <input type="text" id="plomb-number-lcl" name="plomb-number-lcl" value="" >
+                <label for="ref-auto-lcl">Nr referencyjny:</label>
+                <input type="text" id="ref-auto-lcl" name="ref-auto-lcl" value="">
+                <label for="brama-lcl">Brama:</label>
+                <input type="number" id="brama-lcl" name="brama-lcl" min="1" max="35" value="">
             </div>
-            
-            <ul class="main-input">
-                <li>
-                    <label for="plomb-number">Numer plomby:</label>
-                    <input type="text" id="plomb-number" name="plomb-number" value="" >
-                </li>
-                <li>
-                    <label for="ref-auto">Nr referencyjny:</label>
-                    <input type="text" id="ref-auto" name="ref-auto" value="">
-                </li>
-                <li>
-                    <label for="brama">Brama:</label>
-                    <input type="number" id="brama" name="brama" min="1" max="35" value="">
-                </li>
-            </ul>
             <div class="otvety">
                     <p id="suma-palet">Suma palet</p>
                     <p id="suma-korobok">Suma korobok</p>
@@ -56,7 +59,6 @@
                 <option value="BG SPEEDY CZWARTEK PIĄTEK">
                 <option value="BG SPEEDY SOBOTA-ŚRODA">
                 <option value="BG ECONT">
-                <!-- <option value="CH SWISSPOST"> -->
                 <option value="CZ ZAS PRAGA NEHVIZDY pn-czw">
                 <option value="CZ ZAS PT i ND (12:00)">
                 <option value="FR LA POSTE">
@@ -74,9 +76,7 @@
                 <option value="SK DPD Dolný Hričov">	
                 <option value="ZIL SK/ ZAS SK">
             </datalist>
-            
             <div id="overlay" class="overlay"></div>
-
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <div id="calc">
@@ -89,11 +89,10 @@
                     </menu>
                 </div>
             </div>
-
-            <form name="form-main" class="hidden">
+            <div>
+              <form name="form-main" class="hidden">
                 <fieldset>
                     <legend id="legenda">Komplet 0</legend>
-                    
                     <div class="input-box">
                             <span class="">
                                 <label for="country">Kraj:</label>
@@ -129,13 +128,309 @@
                         </div>
                     </div>
                 </fieldset>
-            </form>
+              </form>
+            </div>
             
+            <input type="button" id="add-kraj" class="main-button" value="Dodać komplet" onclick="cloneForm()">
         </article>
-        <article id="forMemories">
+        <article id="cmr-dpd" class="hidden">
+          <h2>Quick create CMR  for DPD</h2>
+          <datalist id="dpdList">
+            <option value="DPD AT">
+            <option value="DPD NCS">
+            <option value="DPD SRS">
+            <option value="DPD ZG">
+            <option value="DPD Lublin">
+          </datalist>
+          <div id="kurier-box" class="kurier-box">
+            <div id="selectkrajinpost" class="radio-button-list">
+              <ul>
+                <li>
+                  <label for="dpd-at">DPD AT</label>
+                  <input type="radio" id="dpd-at" name="dpd" value="city" />
+                </li>
+                <li>
+                  <label for="dpd-ncs">DPD NCS</label>
+                  <input type="radio" id="dpd-ncs" name="dpd" value="city" />
+                </li>
+                <li>
+                  <label for="dpd-srs">DPD SRS</label>
+                  <input type="radio" id="dpd-srs" name="dpd" value="city" />
+                </li>
+                <li>
+                  <label for="dpd-zg">DPD ZG</label>
+                  <input type="radio" id="dpd-zg" name="dpd" value="city" />
+                </li>
+                <li>
+                  <label for="dpd-lublin">DPD Lublin</label>
+                  <input type="radio" id="dpd-lublin" name="dpd" value="city" />
+                </li>
+              </ul>
+            </div>
+            <div class="input-box">
+              <label for="plomb-number-dpd">Numer plomby:</label>
+              <input type="text" id="plomb-number-dpd" name="plomb-number-dpd" value="" >
+              <label for="ref-auto-dpd">Nr referencyjny:</label>
+              <input type="text" id="ref-auto-dpd" name="ref-auto-dpd" value="">
+              <label for="brama-dpd">Brama:</label>
+              <input type="number" id="brama-dpd" name="brama-dpd" min="1" max="35" value="">
+              <label for="country-dpd">Kraj:</label>
+              <input type="text" id="country-dpd" name="country-dpd" list="dpdList" required="required" value="">
+              <label for="ipaczki-dpd">ilosc paczek:</label>
+              <input type="number" id="ipaczki-dpd" name="ipaczki-dpd" min="0" max="9999" value="">
+              <label for="ipalety-dpd">ilosc palet:</label>
+              <input type="number" id="ipalety-dpd" name="ipalety-dpd" min="0" max="60" value="">
+            </div>
+          </div>
+        </article>
+        <article id="cmr-dhl" class="hidden">
+          <h2>Quick create CMR  for DHL  DE/ES/SE</h2>
+          <datalist id="dhlList">
+            <option value="DHL DE 6:00">
+            <option value="DHL DE 14:00">
+            <option value="DHL SE/ES">
+          </datalist>
+          <div class="kurier-box">
+            <div class="radio-button-list">
+              <ul>
+                <li>
+                  <label for="dhl-de-6">DE 6:00</label>
+                  <input type="radio" id="dhl-de-6" name="dhl" value="city" />
+                </li>
+                <li>
+                  <label for="dhl-de-14">DE 14:00</label>
+                  <input type="radio" id="dhl-de-14" name="dhl" value="city" />
+                </li>
+                <li>
+                  <label for="dhl-sees">DHL SE/ES</label>
+                  <input type="radio" id="dhl-sees" name="dhl" value="city" />
+                </li>
+              </ul>
+            </div>
+            <div class="input-box">
+              <label for="plomb-number-dhl">Numer plomby:</label>
+              <input type="text" id="plomb-number-dhl" name="plomb-number-dhl" value="" >
+              <label for="ref-auto-dhl">Nr referencyjny:</label>
+              <input type="text" id="ref-auto-dhl" name="ref-auto-dhl" value="">
+              <label for="brama-dhl">Brama:</label>
+              <input type="number" id="brama-dhl" name="brama-dhl" min="1" max="35" value="">
+              <label for="country-dhl">Kraj:</label>
+              <input type="text" id="country-dhl" name="country-dhl" list="dhlList" required="required" value="">
+              <div class="de-selected">
+                <label for="ipaczki-dhl">ilosc paczek:</label>
+                <input type="number" id="ipaczki-dhl" name="ipaczki-dhl" min="0" max="9999" value="">
+                <label for="ipalety-dhl">ilosc palet:</label>
+                <input type="number" id="ipalety-dhl" name="ipalety-dhl" min="0" max="60" value="">
+              </div>
+              <div class="sees-selected">
+                <textarea name="sees-selected" id="sees-selected" cols="30" rows="5" 
+                placeholder="Items                  | Pal. | Paczki                 Palety DHL		9                 ESSE KOSHE		4       266"></textarea>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="cmr-inpost" class="hidden">
+          <h2>Quick create CMR  for Inpost</h2>
+          <datalist id="impostList">
+            <option value="Inpost ZG">
+            <option value="Inpost SORR">
+            <option value="Inpost SORR2">
+            <option value="Inpost WR2">
+            <option value="Inpost WR3">
+            <option value="Inpost PZ3">
+            <option value="Inpost PZ2">	
+            <option value="Inpost POZ">
+            <option value="Inpost WRO">
+            <option value="Inpost OPO">
+            <option value="Inpost LESZNO">
+            <option value="Inpost GOW">
+          </datalist>
+          <div id="kurier-box" class="kurier-box">
+            <div id="selectkrajinpost" class="radio-button-list">
+              <ul>
+                <li>
+                  <label for="inpost-zg">Inpost ZG</label>
+                  <input type="radio" id="inpost-zg" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-sorr">Inpost SORR</label>
+                  <input type="radio" id="inpost-sorr" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-sorr2">Inpost SORR2</label>
+                  <input type="radio" id="inpost-sorr2" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-wr2">Inpost WR2</label>
+                  <input type="radio" id="inpost-wr2" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-wr3">Inpost WR3</label>
+                  <input type="radio" id="inpost-wr3" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-pz3">Inpost PZ3</label>
+                  <input type="radio" id="inpost-pz3" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-pz2">Inpost PZ3</label>
+                  <input type="radio" id="inpost-pz3" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-wro">Inpost WRO</label>
+                  <input type="radio" id="inpost-wro" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-leszno">Inpost LESZNO</label>
+                  <input type="radio" id="inpost-leszno" name="inpost" value="city" />
+                </li>
+                <li>
+                  <label for="inpost-gow">Inpost GOW</label>
+                  <input type="radio" id="inpost-gow" name="inpost" value="city" />
+                </li>
+              </ul>
+            </div>
+            <div class="input-box">
+              <label for="plomb-number-inpost">Numer plomby:</label>
+              <input type="text" id="plomb-number-inpost" name="plomb-number-inpost" value="" >
+              <label for="ref-auto-inpost">Nr referencyjny:</label>
+              <input type="text" id="ref-auto-inpost" name="ref-auto-inpost" value="">
+              <label for="brama-inpost">Brama:</label>
+              <input type="number" id="brama-inpost" name="brama-inpost" min="1" max="35" value="">
+              <label for="country-inpost">Kraj:</label>
+              <input type="text" id="country-inpost" name="country-inpost" list="impostList" required="required" value="">
+              <label for="jambobox">JamboBox:</label>
+              <input type="number" id="jambobox" name="jambobox" min="0" max="60" value="">
+              <label for="gaylordbox">GayLordBox:</label>
+              <input type="number" id="gaylordbox" name="gaylordbox" min="0" max="60" value="">
+              <label for="kosze">Kosze:</label>
+              <input type="number" id="kosze" name="kosze" min="0" max="60" value="">
+            </div>
+          </div>
+          <!-- <hr> -->
+          <!-- <div id="main-buttons" class="main-buttons">
+            <input type="button" id="refresh" class="main-button"value="Reset" onclick="location.reload()">
+            <input type="button" id="druk-button" class="druk-button" value="DRUKUJ CMR">
+          </div> -->
+        </article>
+        <article id="cmr-transsped" class="hidden">
+          <h2>Quick create CMR  for Transsped</h2>
+          <datalist id="transspedList">
+            <option value="Transsped LT">
+            <option value="Transsped LV">
+            <option value="Transsped CH">
+          </datalist>
+          <div class="kurier-box">
+            <div class="radio-button-list">
+              <ul>
+                <li>
+                  <label for="transsped-lt">Transsped LT</label>
+                  <input type="radio" id="transsped-lt" name="transsped" value="city" />
+                </li>
+                <li>
+                  <label for="transsped-lv">Transsped LV</label>
+                  <input type="radio" id="transsped-lv" name="transsped" value="city" />
+                </li>
+                <li>
+                  <label for="transsped-ch">Transsped CH</label>
+                  <input type="radio" id="transsped-ch" name="transsped" value="city" />
+                </li>
+              </ul>
+            </div>
+            <div class="input-box">
+              <label for="plomb-number-transsped">Numer plomby:</label>
+              <input type="text" id="plomb-number-transsped" name="plomb-number-transsped" value="" >
+              <label for="ref-auto-transsped">Nr referencyjny:</label>
+              <input type="text" id="ref-auto-transsped" name="ref-auto-transsped" value="">
+              <label for="brama-transsped">Brama:</label>
+              <input type="number" id="brama-transsped" name="brama-transsped" min="1" max="35" value="">
+              <label for="country-transsped">Kraj:</label>
+              <input type="text" id="country-transsped" name="country-transsped" list="transspedList" required="required" value="">
+              <div class="trans-selected">
+                <label for="ipaczki-trans">ilosc paczek:</label>
+                <input type="number" id="ipaczki-trans" name="ipaczki-trans" min="0" max="9999" value="">
+                <label for="ipalety-trans">ilosc palet:</label>
+                <input type="number" id="ipalety-trans" name="ipalety-trans" min="0" max="60" value="">
+              </div>
+              <div class="trans-ch-selected">
+                <textarea name="trans-ch-palety" id="trans-ch-palety" cols="30" rows="9" 
+                placeholder="nr. palety | Paczki     132806402/08/2023/01	78                132846326/08/2023/01	41                132868770/09/2023/01	47               132869261/09/2023/01	57"></textarea>
+                <textarea name="trans-ch-waga" id="trans-ch-selected" cols="30" rows="9" 
+                placeholder="644 kg – waga total            618,05 kg – waga brutto         25,95 kg – waga tara"></textarea>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="cmr-ppl" class="hidden">
+          <h2>Quick create CMR  for PPL</h2>
+          <datalist id="pplList">
+            <option value="PPL">
+          </datalist>
+          <div id="kurier-box" class="kurier-box">
+            <div id="selectkrajinpost" class="radio-button-list">
+              <ul>
+                <li>
+                  <label for="ppl">PPL</label>
+                  <input type="radio" id="ppl" name="ppl" value="city" />
+                </li>
+              </ul>
+            </div>
+            <div class="input-box">
+              <label for="plomb-number-ppl">Numer plomby:</label>
+              <input type="text" id="plomb-number-ppl" name="plomb-number-ppl" value="" >
+              <label for="ref-auto-ppl">Nr referencyjny:</label>
+              <input type="text" id="ref-auto-ppl" name="ref-auto-ppl" value="">
+              <label for="brama-ppl">Brama:</label>
+              <input type="number" id="brama-ppl" name="brama-ppl" min="1" max="35" value="">
+              <label for="country-ppl">Kraj:</label>
+              <input type="text" id="country-ppl" name="country-ppl" list="pplList" required="required" value="">
+              <label for="ipaczki-ppl">ilosc paczek:</label>
+              <input type="number" id="ipaczki-ppl" name="ipaczki-ppl" min="0" max="9999" value="">
+              <label for="ipalety-ppl">ilosc palet:</label>
+              <input type="number" id="ipalety-ppl" name="ipalety-ppl" min="0" max="60" value="">
+            </div>
+          </div>
+        </article>
+        <article id="cmr-venipack" class="hidden">
+          <h2>Quick create CMR  for Venipak LT/LV</h2>
+          <datalist id="venipakList">
+            <option value="Venipak LT/LV">
+          </datalist>
+          <div id="kurier-box" class="kurier-box">
+            <div id="selectkrajinpost" class="radio-button-list">
+              <ul>
+                <li>
+                  <label for="venipak-ltlv">Venipak LT/LV</label>
+                  <input type="radio" id="venipak-ltlv" name="venipak" value="city" />
+                </li>
+              </ul>
+            </div>
+            <div class="input-box">
+              <label for="plomb-number-venipak">Numer plomby:</label>
+              <input type="text" id="plomb-number-venipak" name="plomb-number-venipak" value="" >
+              <label for="ref-auto-venipak">Nr referencyjny:</label>
+              <input type="text" id="ref-auto-venipak" name="ref-auto-venipak" value="">
+              <label for="brama-venipak">Brama:</label>
+              <input type="number" id="brama-venipak" name="brama-venipak" min="1" max="35" value="">
+              <label for="country-venipak">Kraj:</label>
+              <input type="text" id="country-venipak" name="country-venipak" list="venipakList" required="required" value="">
+              <label for="ipaczki-venipak-lt">ilosc paczek LT:</label>
+              <input type="number" id="ipaczki-venipak-lt" name="ipaczki-venipak-lt" min="0" max="9999" value="">
+              <label for="ipalety-venipak-lt">ilosc palet LT:</label>
+              <input type="number" id="ipalety-venipak-lt" name="ipalety-venipak-lt" min="0" max="60" value="">
+              <label for="ipaczki-venipak-lv">ilosc paczek LV:</label>
+              <input type="number" id="ipaczki-venipak-lv" name="ipaczki-venipak-lv" min="0" max="9999" value="">
+              <label for="ipalety-venipak-lv">ilosc palet LV:</label>
+              <input type="number" id="ipalety-venipak-lv" name="ipalety-venipak-lv" min="0" max="60" value="">
+            </div>
+          </div>
+        </article>
+        <article id="cmr-inne" class="hidden"></article>
+        <article id="forMemories" class="active">
             <h2>for Memories:</h2>
         </article>
     </section>
+    
     <script>
         startWork();
     </script>

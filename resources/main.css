@@ -5,6 +5,7 @@
     padding: 0px;
     font-family: 'poppins', sans-serif;
 }
+
 body{
     margin: 10px;
     /* text-align: center; */
@@ -14,24 +15,88 @@ body{
 .hidden {
     display: none;
   }
+.active {
+  display: block;
+}
+
+/* header NAV --------------------------------------*/
+  .header-nav,.header-nav ul{
+      display: flex;
+  }
+  .header-nav li{
+    list-style-type: none;
+    margin-left: 2em;
+  }
+/* menu kurierow -------------------------------------*/
+  .nav-kurierow{
+      margin: 5px;
+      padding-left: 3em;
+      /* background-color: rgb(70, 173, 199); */
+      display: flex;
+      /* justify-content : center; */
+      align-items : center;
+  }
+  .nav-kurierow button{
+      margin-left: 2em;
+      width: max-content;
+      padding: 1em;
+      cursor: pointer;
+      border: 0;
+      border-radius: 5px;
+      transition: opacity 0.2s ease-in; 
+      opacity: 0.5;
   
-#main1{
+  }
+  .nav-kurierow button:hover{
+      opacity: 1;
+  }
+  .btn-dpd{
+      background-color: rgb(179, 128, 226);
+  }
+  .btn-dhl{
+      background-color: rgb(141, 141, 241)
+  }
+  .btn-inpost{
+      background-color: bisque;
+  }
+  .btn-transsped{
+      background-color: rgb(86, 209, 106);
+  }
+  .btn-ppl{
+      background-color: rgb(168, 167, 166);
+  }
+  .btn-venipack{
+      background-color: rgb(226, 102, 139);
+  }
+  .btn-inne{
+      background-color: rgb(214, 136, 99);
+  }
+
+
+
+.main1{
     display: flex;
     /* width: 70%; */
 }
 
 article{
-    flex: 1;
-    margin: 5px;
-    height: 90%;
+    flex: auto;
+    margin: 1em;
+    /* height: 90%; */
     /* background-color: blanchedalmond; */
     display: block;
 }
-
-article:first-child{
-    flex:3;
+.main-buttons{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em;
 }
-
+.druk-button{
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 1em;
+  /* border: .1em solid ; */
+}
 .block-button{
     margin: 15px;
     display: flex;
@@ -46,45 +111,52 @@ article:first-child{
     height: 50px;
     padding: 10px;
     /* border-radius: 15px; */
-    
+}
+/* section kurierow -----------------------*/
+.kurier-box{
+  display: flex;
+  flex: auto;
+}
+.radio-button-list{
+  margin: .5em;
+  background-color: bisque;
+  border-radius: .5em;
+  width: max-content;
+  max-height: inherit;
+  border:  2px solid rgb(97, 57, 8);
+}
+.radio-button-list ul{
+  /* display: flex; */
+  flex-direction: column;
+  /* flex: auto; */
+  width: max-content;
+}
+.radio-button-list li{
+  text-align: right;
+  /* justify-content: flex-end; */
+  list-style-type: none;
+  padding: .1em .5em;
+  margin-top: .5em;
+}
+.radio-button-list input{
+  vertical-align: middle;
 }
 
-#add-kraj,#submit-button{
-    font-size: large;
-    font-weight: bold;
-    /* border: 2px solid black; */
+.de-selected,.trans-selected{
+  display: flex;
+  flex-direction: column;
 }
-
+.sees-selected,.trans-ch-selected{
+  display: block;
+  margin: 1em 0;
+}
 .main-input{
     margin: 15px;
     list-style-type: none;
     width: 90%;
     /* background-color: beige; */
     text-align: center;
-
-}
-
-li{
-    margin: 10px;
-    display: flex;
-}
-
-li label {
-    width: 20%;
-    text-align: left;
-}
-
-li input{
-    /* text-align: right; */
-    /* display: inline; */
-    /* width: 70%; */
-    /* padding: 5px; */
-    font-size: 1em;
-    text-align: center;
-}
-
-li:nth-of-type(2) input {
-    width: 80%;
+    
 }
 
 .otvety{

@@ -462,7 +462,6 @@ function clickOverlay(event){
 }
 
 function closeCalcModal(){
-    
     const modal = document.getElementById('modal');
     const overlay = document.getElementById('overlay');
     const body = document.body;
@@ -470,7 +469,6 @@ function closeCalcModal(){
     overlay.style.display = 'none';
     body.style.overflow = 'auto'; // Разблокировка прокрутки страницы
     modal.removeEventListener('click',clickOverlay);
-    
 }
 
 function clickKey(event){
@@ -478,6 +476,7 @@ function clickKey(event){
     if (event.key === 'Enter' && modal.style.display === 'block') {
         submitModalCalc();
       }
+      
 }
 
 function submitModalCalc(event){
@@ -499,6 +498,23 @@ function submitModalCalc(event){
     
 }
 
+function navkurbuttonclick(event){
+    const buttonclk=event.target.innerHTML;
+    // " ".toLowerCase
+    const curentButton = `cmr-${buttonclk.toLowerCase()}`;
+    const sectionMain=document.querySelector('#main1');
+    const artKurierow=sectionMain.querySelectorAll('article');
+    // console.log(artKurierow);
+    artKurierow.forEach((artItem)=>{
+        artItem.classList.add('hidden');
+        artItem.classList.remove('active');
+        if(artItem.id===curentButton||artItem.id==='forMemories'){
+            artItem.classList.remove('hidden');
+            artItem.classList.add('active');
+        }
+    });
+    
+}
 function startWork(){
     cloneForm();
     const memories = document.querySelector('#forMemories');
@@ -507,15 +523,17 @@ function startWork(){
         memoriesList.forEach(
             mems => {
                 // console.log(mems);
-
                 const htmlCode=renderMemoriesHTML(mems);
                 // console.log(htmlCode);
                 memories.insertAdjacentHTML('beforeend', htmlCode);   
             }
         );
+        memories.classList.add('active');
     } 
     const ulMy = document.querySelector('.main-input');
-    addMyEvent(ulMy,'input','change',writeAnwer);
+    // addMyEvent(ulMy,'input','change',writeAnwer);
+    const navbutton = document.querySelector('.nav-kurierow');
+    addMyEvent(navbutton,'button','click',navkurbuttonclick);
     document.querySelector('#forMemories').addEventListener('click',deleteMem);
     document.querySelector('#forMemories').addEventListener('click',selectTypMemoryVisial);
 
