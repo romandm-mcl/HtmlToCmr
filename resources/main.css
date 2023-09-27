@@ -10,6 +10,7 @@ body{
     margin: 10px;
     /* text-align: center; */
    width: 1040px;
+   background-color: slategray;
 }
 
 .hidden {

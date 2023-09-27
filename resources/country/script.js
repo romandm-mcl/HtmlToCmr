@@ -307,10 +307,12 @@ function submitForm(){
     let listTextarea = cmrArtKurier.querySelector('.input-box').querySelectorAll('textarea');
     
     listInput.forEach((item)=>{
-        outArr[item.id]=item.value;
+        if (item.parentNode.className==="hidden")outArr[item.id]=""
+        else outArr[item.id]=item.value;
     })
     listTextarea.forEach((item)=>{
-        outArr[item.id]=item.value;
+        if (item.parentNode.className==="hidden")outArr[item.id]=""
+        else outArr[item.id]=item.value;
     })
     prepareForPrint(outArr);
 }
@@ -318,7 +320,6 @@ function submitForm(){
 function prepareForPrint(arrData4print={}){
     if(Object.keys(arrData4print).length<1)return -1;
     let myWindow = window.open("","_blank", "width=600,height=600");
-    let cmrWindow = window.open("./resources/country/shablonCustomDruk.html",arrData4print["activeKurier"]);
     myWindow.document.write(`<p> current kurier: ${arrData4print["activeKurier"]}</p>`);
     myWindow.document.write(`<p> Kurier kraj: ${arrData4print["cmr4druk"]}</p>`);
     for(let key in arrData4print){
@@ -328,9 +329,28 @@ function prepareForPrint(arrData4print={}){
         }
     }
     myWindow.document.write(`<button onclick="window.close()">Close</button>`);
-    // alert(cmrWindow.location.href);
+    
+    // поля для заполнения  CMR
+    // 
+    // id="nrref"                        = ref-auto
+    // id="2-place-ALL"   odbiorca
+    // id="16-place-ALL"   kurier
+    // id="3-place-ALL"   dop  Miejsce przeznaczenia (miejscowość, kraj) 
+    // id="17-place-ALL"   next kurier
+    // id="18-place-ALL"    ????
+    // id="plomba"                       = plomb-number
+    // id="brama"                        = brama
+    // id="6a-place-ALL"  paczki/palety  = ipaczki   = ipalety
+    // id="6b-place-ALL"  ilosci 
+    // id="11a-place-ALL"   waga
+    // id="suma"   suma  ilosci
+    // id="13-place-ALL"  	Instrukcje nadawcy
+    // id="19-place-ALL"  Postanowienia specjalne
+    // 
+    // // 
+    let cmrWindow = window.open("./resources/country/shablonCustomDruk.html",arrData4print["activeKurier"]);
     cmrWindow.onload = function() {
-        cmrWindow.document.querySelector("#nrref").value = arrData4print["activeKurier"];
+        cmrWindow.document.querySelector("#nrref").value = isPresent(arrData4print["activeKurier"]);
     }   
 }
 
