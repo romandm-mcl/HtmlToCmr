@@ -39,7 +39,7 @@
     </div>
     <hr>
     <section id="main1" class="main1">
-        <article id="cmr-lcl" class="active">
+        <article id="cmr-lcl" class="hidden">
             <h2>Quick create CMR  for  LCL</h2>
             <div class="input-box">
                 <label for="plomb-number-lcl">Numer plomby:</label>
@@ -133,7 +133,7 @@
             
             <input type="button" id="add-kraj" class="main-button" value="Dodać komplet" onclick="cloneForm()">
         </article>
-        <article id="cmr-dpd" class="hidden">
+        <article id="cmr-dpd" class="active">
           <h2>Quick create CMR  for DPD</h2>
           <datalist id="dpdList">
             <option value="DPD AT">
@@ -216,14 +216,14 @@
               <input type="number" id="brama-dhl" name="brama-dhl" min="1" max="35" value="">
               <label for="country-dhl">Kraj:</label>
               <input type="text" id="country-dhl" name="country-dhl" list="dhlList" required="required" value="">
-              <div id="de-act" class="hidden">
+              <div id="de-act" class="de-selected">
                 <label for="ipaczki-dhl">ilosc paczek:</label>
                 <input type="number" id="ipaczki-dhl" name="ipaczki-dhl" min="0" max="9999" value="">
                 <label for="ipalety-dhl">ilosc palet:</label>
                 <input type="number" id="ipalety-dhl" name="ipalety-dhl" min="0" max="60" value="">
               </div>
-              <div id="sees-act" class="hidden">
-                <textarea name="sees-selected" id="sees-selected" cols="30" rows="5" 
+              <div id="dhl-sees-act" class="hidden">
+                <textarea name="dhl-sees-selected" id="dhl-sees-palety" cols="30" rows="5" 
                 placeholder="Items                  | Pal. | Paczki                 Palety DHL		9                 ESSE KOSHE		4       266"></textarea>
               </div>
             </div>
@@ -349,7 +349,7 @@
               <input type="number" id="brama-transsped" name="brama-transsped" min="1" max="35" value="">
               <label for="country-transsped">Kraj:</label>
               <input type="text" id="country-transsped" name="country-transsped" list="transspedList" required="required" value="">
-              <div id="trans-ltlv-act" class="hidden">
+              <div id="trans-ltlv-act" class="trans-selected">
                 <label for="ipaczki-trans">ilosc paczek:</label>
                 <input type="number" id="ipaczki-trans" name="ipaczki-trans" min="0" max="9999" value="">
                 <label for="ipalety-trans">ilosc palet:</label>
@@ -358,7 +358,7 @@
               <div id="trans-ch-act" class="hidden">
                 <textarea name="trans-ch-palety" id="trans-ch-palety" cols="30" rows="9" 
                 placeholder="nr. palety | Paczki     132806402/08/2023/01	78                132846326/08/2023/01	41                132868770/09/2023/01	47               132869261/09/2023/01	57"></textarea>
-                <textarea name="trans-ch-waga" id="trans-ch-selected" cols="30" rows="9" 
+                <textarea name="trans-ch-waga" id="trans-ch-waga" cols="30" rows="9" 
                 placeholder="644 kg – waga total            618,05 kg – waga brutto         25,95 kg – waga tara"></textarea>
               </div>
             </div>

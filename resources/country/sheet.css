@@ -19,6 +19,13 @@ h1{
   display: flex;
   /* background: rgb(68, 66, 66); */
 }
+
+textarea{
+  resize:none;
+  border:0px; 
+  width:95%
+}
+
 .left-column{
   display: flex;
   height: inherit;

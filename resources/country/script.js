@@ -17,7 +17,7 @@ const objCMR={
 
 let memoriesList = [];  ///array  for mem
 let submitCalc = '';
-let activeKurier = 'cmr-lcl';
+// let activeKurier = 'cmr-lcl';
 const arrKrajSin=[
     ["BG SPEEDY CZWARTEK PIĄTEK","BG-CP"],
     ["BG SPEEDY SOBOTA-ŚRODA","BG-SS"],
@@ -285,19 +285,53 @@ function addNewMemories(myObjParm){
     memories.insertAdjacentHTML('beforeend', renderMemoriesHTML(newMem));
 }
 
-function submitForm(){
+function checkActiveKurier(){
+    const allArt = document.querySelectorAll("article");
+    let activeArt = "" ;
+    allArt.forEach((art)=>{
+        if (art.className ==="active"&& art.id !=="forMemories") activeArt=art.id.toString();
+    })
+    return activeArt;
+}
 
-    let myWindow = window.open("","_blank", "width=600,height=600");
+function submitForm(){
+    let activeKurier = checkActiveKurier();
+    let outArr = {};
     const cmrArtKurier = document.querySelector('#'+activeKurier);
     let nameR = activeKurier.split('-')[1].trimEnd();
     let item = cmrArtKurier.querySelector(`input[name="${nameR}"]:checked`);
     // let valueR = item==null ? 'pusto' : item.parentNode.innerText.trimEnd();
-    let cmr4druk = item==null ? 'pusto' : item.id;
-    let arrInput = cmrArtKurier.querySelector('.input-box').querySelectorAll('input');
-    console.log(arrInput);
-    myWindow.document.write(`<p> current kurier: ${activeKurier}</p>`);
-    myWindow.document.write(`<p> Kurier kraj: ${cmr4druk}</p>`);
+    outArr["cmr4druk"] = item==null ? 'pusto' : item.id;
+    outArr["activeKurier"]=activeKurier;
+    let listInput = cmrArtKurier.querySelector('.input-box').querySelectorAll('input');
+    let listTextarea = cmrArtKurier.querySelector('.input-box').querySelectorAll('textarea');
+    
+    listInput.forEach((item)=>{
+        outArr[item.id]=item.value;
+    })
+    listTextarea.forEach((item)=>{
+        outArr[item.id]=item.value;
+    })
+    prepareForPrint(outArr);
+}
+
+function prepareForPrint(arrData4print={}){
+    if(Object.keys(arrData4print).length<1)return -1;
+    let myWindow = window.open("","_blank", "width=600,height=600");
+    let cmrWindow = window.open("./resources/country/shablonCustomDruk.html",arrData4print["activeKurier"]);
+    myWindow.document.write(`<p> current kurier: ${arrData4print["activeKurier"]}</p>`);
+    myWindow.document.write(`<p> Kurier kraj: ${arrData4print["cmr4druk"]}</p>`);
+    for(let key in arrData4print){
+        if (arrData4print.hasOwnProperty(key)){
+            console.log(arrData4print[key]);
+            myWindow.document.write(`<p>${key} = ${arrData4print[key]}</p>`);
+        }
+    }
     myWindow.document.write(`<button onclick="window.close()">Close</button>`);
+    // alert(cmrWindow.location.href);
+    cmrWindow.onload = function() {
+        cmrWindow.document.querySelector("#nrref").value = arrData4print["activeKurier"];
+    }   
 }
 
 function submitFormOld(){
@@ -307,17 +341,13 @@ function submitFormOld(){
         markGreenRed(false);
         return;
     }
-    
-	
     let parametry = new URLSearchParams();
     let parJson= JSON.stringify(myObjParm);
-    
     parametry.append('prm',parJson);
     window.open("./resources/collector.html?" + parametry);
 	document.querySelector('#kwit').innerHTML=getAllKodKP(myObjParm).toString().replace(/,/g," ");
     addNewMemories(myObjParm);
     clearAllInput();
-	
 }
 
 function removeForm(event){
@@ -526,24 +556,24 @@ function navkurbuttonclick(event){
         artItem.className = 'hidden';
         if(artItem.id===curentButton||artItem.id==='forMemories'){
             artItem.className = 'active';
-            activeKurier = curentButton;
+            // activeKurier = curentButton;
         }
     });
 }
 
 function radioButtonclick(event){
-    const buttonclk=event.target.id;
+    const rbuttonclk=event.target.id;
     
-    const kurier = '#country-'+buttonclk.split('-')[0];
-    // console.log(buttonclk);
+    const kurier = '#country-' + rbuttonclk.split('-')[0];
+    // console.log(rbuttonclk);
     let item;
-    switch (buttonclk){
+    switch (rbuttonclk){
         case  'dhl-de-6':
         case  'dhl-de-14':
         case  'dhl-sees': 
             document.querySelector('#de-act').className='hidden';
-            document.querySelector('#sees-act').className='hidden';
-            if (buttonclk==='dhl-sees')document.querySelector('#sees-act').className='sees-selected';
+            document.querySelector('#dhl-sees-act').className='hidden';
+            if (rbuttonclk==='dhl-sees')document.querySelector('#dhl-sees-act').className='sees-selected';
             else document.querySelector('#de-act').className='de-selected';
             break;
         case 'transsped-lt':
@@ -551,13 +581,13 @@ function radioButtonclick(event){
         case 'transsped-ch':
             document.querySelector('#trans-ltlv-act').className='hidden';
             document.querySelector('#trans-ch-act').className='hidden';
-            if (buttonclk==='transsped-ch')document.querySelector('#trans-ch-act').className='trans-ch-selected';
+            if (rbuttonclk==='transsped-ch')document.querySelector('#trans-ch-act').className='trans-ch-selected';
             else document.querySelector('#trans-ltlv-act').className='trans-selected';
             break;
         default: 
              break;
     }
-    item = document.querySelector('#'+buttonclk).parentNode.innerText.trimEnd();
+    item = document.querySelector('#'+rbuttonclk).parentNode.innerText.trimEnd();
     // console.log(`Country (${kurier})= ${item}.  `);
     document.querySelector(kurier).value = item;
 }
