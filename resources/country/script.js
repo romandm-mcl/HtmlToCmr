@@ -332,18 +332,20 @@ function prepareForPrint(arrData4print={}){
     
     // поля для заполнения  CMR
     // 
-    // id="nrref"                        = ref-auto
-    // id="2-place-ALL"   odbiorca
-    // id="16-place-ALL"   kurier
-    // id="3-place-ALL"   dop  Miejsce przeznaczenia (miejscowość, kraj) 
-    // id="17-place-ALL"   next kurier
-    // id="18-place-ALL"    ????
-    // id="plomba"                       = plomb-number
+    // id="ref-auto"                     = ref-auto   -1 rows
+    // id="adres-dostawy"                = adres-dostawy  -4 rows
+    // id="kurier"         kurier        = kurier  - 4 rows
+    // id="3-place-ALL"    kraj dostawy - 2 rows
+    // id="17-place-ALL"   next kurier  - 2 rows
+    // id="18-place-ALL"   ????         - 2 rows
+    // id="datafull"       data now "2023-04-30 10:43"
+    // id="datasmall"      curr. day "2023-04-30" 
+    // id="plomb-number"                 = plomb-number
     // id="brama"                        = brama
-    // id="6a-place-ALL"  paczki/palety  = ipaczki   = ipalety
-    // id="6b-place-ALL"  ilosci 
-    // id="11a-place-ALL"   waga
-    // id="suma"   suma  ilosci
+    // id="ipaczki"        paczki/palety = ipaczki  
+    // id="ipalety"        ilosci        = ipalety
+    // id="waga"           waga          = waga
+    // id="suma"           suma  ilosci  = suma
     // id="13-place-ALL"  	Instrukcje nadawcy
     // id="19-place-ALL"  Postanowienia specjalne
     // 
