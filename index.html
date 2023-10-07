@@ -133,7 +133,7 @@
             
             <input type="button" id="add-kraj" class="main-button" value="Dodać komplet" onclick="cloneForm()">
         </article>
-        <article id="cmr-dpd" class="active">
+        <article id="cmr-dpd" class="hidden">
           <h2>Quick create CMR  for DPD</h2>
           <datalist id="dpdList">
             <option value="DPD AT">
@@ -143,7 +143,7 @@
             <option value="DPD Lublin">
           </datalist>
           <div id="kurier-box" class="kurier-box">
-            <div id="selectkrajinpost" class="radio-button-list">
+            <div class="radio-button-list">
               <ul>
                 <li>
                   <label for="dpd-at">DPD AT</label>
@@ -350,10 +350,10 @@
               <label for="country-transsped">Kraj:</label>
               <input type="text" id="country-transsped" name="country-transsped" list="transspedList" required="required" value="">
               <div id="trans-ltlv-act" class="trans-selected">
-                <label for="ipaczki-trans">ilosc paczek:</label>
-                <input type="number" id="ipaczki-trans" name="ipaczki-trans" min="0" max="9999" value="">
-                <label for="ipalety-trans">ilosc palet:</label>
-                <input type="number" id="ipalety-trans" name="ipalety-trans" min="0" max="60" value="">
+                <label for="ipaczki-transsped">ilosc paczek:</label>
+                <input type="number" id="ipaczki-transsped" name="ipaczki-transsped" min="0" max="9999" value="">
+                <label for="ipalety-transsped">ilosc palet:</label>
+                <input type="number" id="ipalety-transsped" name="ipalety-transsped" min="0" max="60" value="">
               </div>
               <div id="trans-ch-act" class="hidden">
                 <textarea name="trans-ch-palety" id="trans-ch-palety" cols="30" rows="9" 
@@ -428,7 +428,76 @@
             </div>
           </div>
         </article>
-        <article id="cmr-inne" class="hidden"></article>
+        <article id="cmr-inne" class="active">
+          <h2>Quick create CMR  for Other kurierow</h2>
+          <datalist id="inneList">
+            <option value="Custom CMR">
+            <!-- <option value="Transsped LV"> -->
+            <!-- <option value="Transsped CH"> -->
+          </datalist>
+          <datalist id="kurier-list-inne">
+            <option value="LCL"></option>
+            <option value="DPD"></option>
+            <option value="DHL"></option>
+            <option value="Inpost"></option>
+            <option value="Transsped"></option>
+            <option value="PPL"></option>
+            <option value="Venipak"></option>
+            <option value="Inne"></option>
+          </datalist>
+          <div class="kurier-box">
+            <div class="radio-button-list">
+              <ul>
+                <li>
+                  <label for="inne-custom">Custom CMR</label>
+                  <input type="radio" id="inne-custom" name="inne" value="city" />
+                </li>
+                <!-- <li>
+                  <label for="transsped-lv">Transsped LV</label>
+                  <input type="radio" id="transsped-lv" name="transsped" value="city" />
+                </li>
+                <li>
+                  <label for="transsped-ch">Transsped CH</label>
+                  <input type="radio" id="transsped-ch" name="transsped" value="city" />
+                </li>
+              </ul> -->
+            </div>
+            <div class="input-box">
+              <label for="plomb-number-inne">Numer plomby:</label>
+              <input type="text" id="plomb-number-inne" name="plomb-number-inne" value="" >
+              <label for="ref-auto-inne">Nr referencyjny:</label>
+              <input type="text" id="ref-auto-inne" name="ref-auto-inne" value="">
+              <label for="brama-inne">Brama:</label>
+              <input type="number" id="brama-inne" name="brama-inne" min="1" max="35" value="">
+              <!-- <label for="country-inne">Kraj:</label>
+              <input type="text" id="country-inne" name="country-inne" list="inneList" required="required" value=""> -->
+              <div class="">
+                <textarea name="adres-dostawy-inne" id="adres-dostawy-inne" cols="30" rows="4" 
+                placeholder="2	Odbiorca (nazwisko lub nazwa, adres, kraj)"></textarea>
+                <textarea name="kurier-inne" id="kurier-inne" cols="30" rows="4" 
+                placeholder="16	Przewoźnik (nazwisko lub nazwa, adres, kraj)"></textarea>
+                <textarea name="3-place-ALL-inne" id="3-place-ALL-inne" cols="30" rows="2" 
+                placeholder="3	Miejsce przeznaczenia (miejscowość, kraj"></textarea>
+                <textarea name="17-place-ALL-inne" id="17-place-ALL-inne" cols="30" rows="2" 
+                placeholder="17	Kolejni przewoźnicy"></textarea>
+                <textarea name="ipaczki-inne" id="ipaczki-inne" cols="50" rows="9" 
+                placeholder="Paczki/Palety       ilosc"></textarea>
+                <textarea name="waga-inne" id="waga-inne" cols="10" rows="9" 
+                placeholder="waga"></textarea>
+                <textarea name="13-place-ALL-inne" id="13-place-ALL-inne" cols="30" rows="4" 
+                placeholder="13	Instrukcje nadawcy"></textarea>
+                <textarea name="19-place-ALL-inne" id="19-place-ALL-inne" cols="30" rows="4" 
+                placeholder="19	Postanowienia specjalne"></textarea>
+              </div>
+              <h4> Save shablon:</h4>
+              <label for="save-kurier-inne">select kurier to save :</label>
+              <input type="text" id="save-kurier-inne" list="kurier-list-inne" name="save-kurier-inne" value="" >
+              <label for="save-name-inne">name shablon:</label>
+              <input type="text" id="save-name-inne" name="save-name-inne" value="">
+              <input type="button" id="save-custome-cmr" class="" value="save-custome-cmr" onclick="" >
+            </div>
+          </div>
+        </article>
         <article id="forMemories" class="active">
             <h2>for Memories:</h2>
         </article>

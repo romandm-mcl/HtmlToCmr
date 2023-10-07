@@ -301,8 +301,8 @@ function submitForm(){
     let nameR = activeKurier.split('-')[1].trimEnd();
     let item = cmrArtKurier.querySelector(`input[name="${nameR}"]:checked`);
     // let valueR = item==null ? 'pusto' : item.parentNode.innerText.trimEnd();
-    outArr["cmr4druk"] = item==null ? 'pusto' : item.id;
-    outArr["activeKurier"]=activeKurier;
+    outArr["adres"] = item == null ? 'pusto' : item.id;
+    outArr["activeKurier"] = activeKurier;
     let listInput = cmrArtKurier.querySelector('.input-box').querySelectorAll('input');
     let listTextarea = cmrArtKurier.querySelector('.input-box').querySelectorAll('textarea');
     
@@ -321,10 +321,10 @@ function prepareForPrint(arrData4print={}){
     if(Object.keys(arrData4print).length<1)return -1;
     let myWindow = window.open("","_blank", "width=600,height=600");
     myWindow.document.write(`<p> current kurier: ${arrData4print["activeKurier"]}</p>`);
-    myWindow.document.write(`<p> Kurier kraj: ${arrData4print["cmr4druk"]}</p>`);
+    myWindow.document.write(`<p> Kurier kraj: ${arrData4print["adres"]}</p>`);
     for(let key in arrData4print){
-        if (arrData4print.hasOwnProperty(key)){
-            console.log(arrData4print[key]);
+        if (arrData4print.hasOwnProperty(key)&&arrData4print[key]!==""){
+            // console.log(arrData4print[key]);
             myWindow.document.write(`<p>${key} = ${arrData4print[key]}</p>`);
         }
     }
@@ -350,10 +350,36 @@ function prepareForPrint(arrData4print={}){
     // id="19-place-ALL"  Postanowienia specjalne
     // 
     // // 
-    let cmrWindow = window.open("./resources/country/shablonCustomDruk.html",arrData4print["activeKurier"]);
-    cmrWindow.onload = function() {
-        cmrWindow.document.querySelector("#nrref").value = isPresent(arrData4print["activeKurier"]);
-    }   
+    //  obj for druk cmr
+    let objCMR = prepareDanyeCMR(arrData4print);
+    console.log(objCMR);
+    // let cmrWindow = window.open("./resources/country/shablonCustomDruk.html",arrData4print["activeKurier"]);
+    // cmrWindow.onload = function() {
+    //     cmrWindow.document.querySelector("#nrref").value = isPresent(arrData4print["activeKurier"]);
+    // }   
+}
+
+function prepareDanyeCMR(d4cmr){
+    // console.log(d4cmr);
+    let result = {};
+    let kurier = d4cmr["activeKurier"].split("-")[1];
+    result["ref-auto"] = d4cmr["ref-auto-"+kurier];
+    result["adres-dostawy"] = "";
+    result["kurier"] = kurier;
+    result["3-place-ALL"] = "";
+    result["17-place-ALL"] = "";
+    result["18-place-ALL"] = "";
+    result["datafull"] = "";
+    result["datasmall"] = "";
+    result["plomb-number"] = d4cmr["plomb-number-"+kurier];
+    result["brama"] = d4cmr["brama-"+kurier];
+    result["ipaczki"] = d4cmr["ipaczki-"+kurier];
+    result["ipalety"] = d4cmr["ipalety-"+kurier];
+    result["waga"] = "";
+    result["suma"] = "";
+    result["13-place-ALL"] = "";
+    result["19-place-ALL"] = "";
+    return result;
 }
 
 function submitFormOld(){
@@ -494,6 +520,7 @@ function readingALLQuery(){
 	});
     return newObjQuery;
 }
+
 function clearAllInput(){
 	const artMain = document.querySelector('#formCreatCMR');
     let allInputy = artMain.querySelectorAll('input[type="text"], input[type="number"]');
@@ -501,6 +528,7 @@ function clearAllInput(){
 	);
 	markGreenRed();
 }
+
 function calculator(event){
     if (event.target.id !== 'calculator') return;
     // console.dir(event.target);
@@ -583,9 +611,24 @@ function navkurbuttonclick(event){
     });
 }
 
+function changeInput(event){
+    // const inputChange = event.target.id;
+    if (event.target.id.includes("country")) changeInputKraj(event);
+}
+
+function changeInputKraj(event){
+    const valueInputChange = event.target.value.toLowerCase().replace(" ","-");
+    const radioList = event.target.parentNode.parentNode.querySelector(".radio-button-list");
+    const arrRadInput = radioList.querySelectorAll("input");
+    arrRadInput.forEach((item)=>{
+        if (item.id === valueInputChange) {
+            item.checked = 'checked';
+        }
+    })
+}
+
 function radioButtonclick(event){
     const rbuttonclk=event.target.id;
-    
     const kurier = '#country-' + rbuttonclk.split('-')[0];
     // console.log(rbuttonclk);
     let item;
@@ -635,6 +678,7 @@ function startWork(){
     addMyEvent(tmpbutton,'button','click',navkurbuttonclick);
     tmpbutton = document.querySelector('.main1');
     addMyEvent(tmpbutton,'input[type="radio"]','click',radioButtonclick);
+    addMyEvent(tmpbutton, 'input:not([type="radio"])', 'change', changeInput);
     document.querySelector('#forMemories').addEventListener('click',deleteMem);
     document.querySelector('#forMemories').addEventListener('click',selectTypMemoryVisial);
 
