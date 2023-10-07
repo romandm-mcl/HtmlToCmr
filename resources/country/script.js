@@ -17,6 +17,15 @@ const objCMR={
 
 let memoriesList = [];  ///array  for mem
 let submitCalc = '';
+const objAkronimPalet = {
+    GRACS:"ACS GR",
+    BGECONT:"BG ECONT",
+    BGSPEEDY:"BG SPEEDY SOBOTA-ŚRODA",
+    FRLAPOSTE:"FR LA POSTE",
+    HRGLS:"HR GLS",
+    SIGLS:"SI GLS",
+}
+
 const arrKrajSin=[
     ["BG SPEEDY CZWARTEK PIĄTEK","BG-CP"],
     ["BG SPEEDY SOBOTA-ŚRODA","BG-SS"],
@@ -33,6 +42,7 @@ const arrKrajSin=[
     ["IT BARTOLINI","ITbrt"],
     ["LT DPD","LT"],
     ["IT Inpost","ITinp"],
+    ["IT Post","ITpost"],
     ["Sameday RO","ROsd"],
     ["SI GLS","SI"],
     ["RO GLS","RO"],
@@ -68,6 +78,7 @@ function findKraj(a='',index=0) {
             ["IT BARTOLINI","ITbrt"],
             ["LT DPD","LT"],
             ["IT Inpost","ITinp"],
+            ["IT Post","ITpost"],
             ["Sameday RO","ROsd"],
             ["SI GLS","SI"],
             ["RO GLS","RO"],
@@ -334,7 +345,8 @@ function cloneForm() {
         var new_form = form.cloneNode(true);
         new_form.querySelector('#legenda').innerHTML='Komplet '+(document.forms.length);
         new_form.classList.remove("hidden");
-        new_form.name='Clone#'+document.forms.length;
+        new_form.name='Clone-'+document.forms.length;
+        new_form.id = new_form.name;
     // добавляем прослущку onchange для input-ов в forme
         addMyEvent(new_form,'input:not([type="checkbox"])','change',writeAnwer);
 
@@ -349,6 +361,7 @@ function cloneForm() {
 
     // вставляем новую форму в родительский контейнер
     parent.appendChild(new_form);
+    return new_form;
 }
 
 function writeAnwer(){
@@ -519,4 +532,58 @@ function startWork(){
     document.querySelector('#forMemories').addEventListener('click',deleteMem);
     document.querySelector('#forMemories').addEventListener('click',selectTypMemoryVisial);
 
+}
+
+function myTest(){
+    document.querySelector("#div-list-palet").classList.toggle("hidden");
+}
+
+function liczbaListPalet(){
+    let listPaletOrg=document.querySelector("#list-palet").value.split("\n");
+    let objArkonKraj={};
+    listPaletOrg.forEach((item)=>{
+        const name = item.split(".")[0].toUpperCase();
+        if(!objArkonKraj.hasOwnProperty(name)) objArkonKraj[name]=[];
+        objArkonKraj[name].push(item);
+    })
+    // adding form  po ilosci elentow w objArkonKraj  -1
+    let firstForm = true; //Clone#1
+    let iForm ;
+    for (let kraj in objArkonKraj){
+        if (kraj==='') continue;
+        const krPaczki=objArkonKraj[kraj].length;
+        let krArrPalety = [...new Set(objArkonKraj[kraj])];
+        // console.log(krArrPalety);
+        console.log(`for ${kraj} jest ${krArrPalety.length} palet ${krPaczki} paczek`);
+        if (firstForm) {
+            iForm = document.querySelector("#Clone-1");
+            firstForm = !firstForm;
+        }
+        else {
+            iForm = cloneForm();
+        }
+        // console.log(iForm);
+        iForm.querySelector("#country").value = isPresent(objAkronimPalet[kraj]," unknowen paleta");
+        iForm.querySelector("#box-quantity").value = krPaczki;
+        iForm.querySelector("#pallet-quantity").value = krArrPalety.length;
+        document.querySelector("#div-list-palet").classList.add("hidden");
+        // let arrPaczekNaPalete = {};
+        // objArkonKraj[kraj].forEach((a)=>{
+        //     if(arrPaczekNaPalete[a] != undefined) 
+        //         ++arrPaczekNaPalete[a];
+        //     else
+        //         arrPaczekNaPalete[a]=1;
+        // })
+        // // console.log(arrPaczekNaPalete);
+        // objArkonKraj[kraj]=[];
+        // for (let prop in arrPaczekNaPalete){
+        //     if( prop === "") continue;
+        //     // console.log(`${prop}  ${arrPaczekNaPalete[prop]}`);
+        //     objArkonKraj[kraj].push(`${prop}-${arrPaczekNaPalete[prop]}`);
+        // }
+        // objArkonKraj[kraj] = [...new Set(objArkonKraj[kraj])];
+    }
+    //  
+
+    // console.log(objArkonKraj);
 }

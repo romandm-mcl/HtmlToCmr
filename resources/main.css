@@ -8,16 +8,17 @@
 body{
     margin: 10px;
     /* text-align: center; */
-   width: 1040px;
+   /* */
 }
 
 .hidden {
     display: none;
   }
   
-#main1{
+.main1{
     display: flex;
-    /* width: 70%; */
+    width: 1040px; 
+    margin: 10px auto;
 }
 
 article{

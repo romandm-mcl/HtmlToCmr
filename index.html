@@ -10,7 +10,7 @@
     <script src="./resources/country/script.js"></script>
 </head>
 <body>
-    <section id="main1">
+    <section id="main1" class="main1">
         <article id="formCreatCMR">
             <h2>Quick create CMR  for  LCL</h2>
             <div class="block-button">
@@ -55,6 +55,7 @@
                 <option value="HU FOX">
                 <option value="IT BARTOLINI">
                 <option value="IT Inpost">
+                <option value="IT Post"></option>
                 <option value="LT DPD">
                 <option value="Sameday RO">
                 <option value="SI GLS">
@@ -77,8 +78,8 @@
                     </menu>
                 </div>
             </div>
-
-            <form name="form-main" class="hidden">
+            <div>
+              <form name="form-main" class="hidden">
                 <fieldset>
                     <legend id="legenda">Komplet 0</legend>
                     
@@ -117,9 +118,17 @@
                         </div>
                     </div>
                 </fieldset>
-            </form>
-            
+              </form>
+            </div>
+            <input type="button" id="add-kraj" class="main-button" value="Dodać komplet" onclick="cloneForm()">  
+            <hr>
+            <input type="button" id="add-list-palet" class="main-button" value="test" onclick="myTest()">  
+            <div id="div-list-palet" class="list-palet hidden">
+              <textarea name="list-palet" id="list-palet" cols="30" rows="10" placeholder="list palet"></textarea>
+              <input type="button" value="import" onclick="liczbaListPalet()">
+            </div>
         </article>
+        
         <article id="forMemories">
             <h2>for Memories:</h2>
         </article>
