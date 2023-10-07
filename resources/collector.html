@@ -60,7 +60,7 @@
             let numTmp=0;
             //  create page 
             //  create  iframe for arrKrajs for all
-                //  5 CMR  na 1 kraj
+                //  3 CMR  na 1 kraj
                     for (kraj of arr){
                         if (!kraj.printed) continue; // пропускаем если снята галочка печатать
                         //create  obj for one cmr
@@ -82,7 +82,7 @@
                         // create frame for CMR
                         // iframeHTML = `<iframe frameborder="0" width="700" height="1098" src="./country/${myObjParm.kraj[0].name}.html?${parametry}"></iframe>`;
                         iframeHTML = `<iframe frameborder="0" height="1100" src="./country/${myObjParm.kraj[0].name}.html?${parametry}"></iframe>`;
-                        for (var i=0;i<5;i++) {
+                        for (var i=0;i<3;i++) {
                             document.write(iframeHTML);         
                         }
                         //  1 Kwit paletowy
