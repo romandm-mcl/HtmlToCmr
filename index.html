@@ -7,9 +7,15 @@
     <title>Quick cоздание CMR  for  LCL</title>
     <link rel="stylesheet" href="./resources/main.css">
     <!-- <script src="./resources/country/script.js"></script> -->
-    <script src="./resources/country/script.js"></script>
+    <script src="./resources/main.js"></script>
 </head>
 <body>
+  <!-- <div>
+    <h1>Сохранение данных в файл</h1>
+    <button id="saveButton">Сохранить данные</button>
+    <input type="file" id="fileInput">
+  </div> -->
+
     <header class="header">
        <nav id="header-nav" class="header-nav">
           <a href="/">CMR&QRkode&PK</a>
@@ -471,30 +477,32 @@
               <input type="number" id="brama-inne" name="brama-inne" min="1" max="35" value="">
               <!-- <label for="country-inne">Kraj:</label>
               <input type="text" id="country-inne" name="country-inne" list="inneList" required="required" value=""> -->
-              <div class="">
-                <textarea name="adres-dostawy-inne" id="adres-dostawy-inne" cols="30" rows="4" 
-                placeholder="2	Odbiorca (nazwisko lub nazwa, adres, kraj)"></textarea>
-                <textarea name="kurier-inne" id="kurier-inne" cols="30" rows="4" 
+              <div id="block-cmr-textarea" class="block-cmr-textarea">
+                <textarea name="adres-dostawy-inne" id="adres-dostawy-inne" cols="31" rows="4" 
+                placeholder="2	Odbiorca (nazwisko lub nazwa, adres, kraj)" class=""></textarea>
+                <textarea name="kurier-inne" id="kurier-inne" cols="31" rows="4" 
                 placeholder="16	Przewoźnik (nazwisko lub nazwa, adres, kraj)"></textarea>
-                <textarea name="3-place-ALL-inne" id="3-place-ALL-inne" cols="30" rows="2" 
+                <textarea name="3-place-ALL-inne" id="3-place-ALL-inne" cols="31" rows="2" 
                 placeholder="3	Miejsce przeznaczenia (miejscowość, kraj"></textarea>
-                <textarea name="17-place-ALL-inne" id="17-place-ALL-inne" cols="30" rows="2" 
+                <textarea name="17-place-ALL-inne" id="17-place-ALL-inne" cols="31" rows="2" 
                 placeholder="17	Kolejni przewoźnicy"></textarea>
                 <textarea name="ipaczki-inne" id="ipaczki-inne" cols="50" rows="9" 
                 placeholder="Paczki/Palety       ilosc"></textarea>
-                <textarea name="waga-inne" id="waga-inne" cols="10" rows="9" 
+                <textarea name="waga-inne" id="waga-inne" cols="12" rows="9" 
                 placeholder="waga"></textarea>
-                <textarea name="13-place-ALL-inne" id="13-place-ALL-inne" cols="30" rows="4" 
+                <textarea name="13-place-ALL-inne" id="13-place-ALL-inne" cols="31" rows="4" 
                 placeholder="13	Instrukcje nadawcy"></textarea>
-                <textarea name="19-place-ALL-inne" id="19-place-ALL-inne" cols="30" rows="4" 
+                <textarea name="19-place-ALL-inne" id="19-place-ALL-inne" cols="31" rows="4" 
                 placeholder="19	Postanowienia specjalne"></textarea>
               </div>
-              <h4> Save shablon:</h4>
-              <label for="save-kurier-inne">select kurier to save :</label>
-              <input type="text" id="save-kurier-inne" list="kurier-list-inne" name="save-kurier-inne" value="" >
-              <label for="save-name-inne">name shablon:</label>
-              <input type="text" id="save-name-inne" name="save-name-inne" value="">
-              <input type="button" id="save-custome-cmr" class="" value="save-custome-cmr" onclick="" >
+              <div id="block-custom-save" class="block-custom-save">
+                <h4> Save shablon:</h4>
+                <label for="save-kurier-inne">select kurier to save :</label>
+                <input type="text" id="save-kurier-inne" list="kurier-list-inne" name="save-kurier-inne" value="" >
+                <label for="save-name-inne">name shablon:</label>
+                <input type="text" id="save-name-inne" name="save-name-inne" value="">
+                <input type="button" id="save-custome-cmr" class="" value="save-custome-cmr" onclick="" >
+              </div>
             </div>
           </div>
         </article>
@@ -502,9 +510,61 @@
             <h2>for Memories:</h2>
         </article>
     </section>
-    
+      
     <script>
-        startWork();
+
+//       document.addEventListener('DOMContentLoaded', function () {
+//     const fileInput = document.getElementById('fileInput');
+
+//     fileInput.addEventListener('change', function (event) {
+//         const file = event.target.files[0];
+//         if (file) {
+//             const reader = new FileReader();
+
+//             reader.onload = function (e) {
+//                 const fileContents = e.target.result;
+//                 const dataArray = fileContents.split('\n'); // Разделить содержимое файла по строкам
+
+//                 // Теперь массив dataArray содержит содержимое файла
+//                 console.log(dataArray);
+
+//                 // Здесь можно выполнить дополнительные операции с массивом, например, обработать данные или отобразить их на странице.
+//             };
+
+//             reader.readAsText(file);
+//         }
+//     });
+// });
+
+
+//       // Ваш массив данных
+//         var dataArray = ["Данные 1", "Данные 2", "Данные 3"];
+
+//       // Функция для создания и сохранения файла
+//       function saveDataToFile() {
+//         var dataToSave = dataArray.join('\n'); // Преобразуем массив в строку, разделяя элементы переводом строки
+
+//         var blob = new Blob([dataToSave], { type: 'text/plain' });
+//         var url = URL.createObjectURL(blob);
+
+//         var a = document.createElement('a');
+//         a.href = url;
+//         a.download = 'данные.txt'; // Имя файла, который будет скачан
+//         a.style.display = 'none';
+
+//         document.body.appendChild(a);
+//         a.click();
+
+//         document.body.removeChild(a);
+//         URL.revokeObjectURL(url);
+// }
+
+//       // Привязываем обработчик события к кнопке "Сохранить данные"
+//       var saveButton = document.getElementById('saveButton');
+//       saveButton.addEventListener('click', saveDataToFile);
+
+
+        // startWork();
     </script>
 </body>
 </html>

@@ -18,6 +18,15 @@ const objCMR={
 let memoriesList = [];  ///array  for mem
 let submitCalc = '';
 // let activeKurier = 'cmr-lcl';
+const objAkronimPalet = {
+    GRACS:"ACS GR",
+    BGECONT:"BG ECONT",
+    BGSPEEDY:"BG SPEEDY SOBOTA-ŚRODA",
+    FRLAPOSTE:"FR LA POSTE",
+    HRGLS:"HR GLS",
+    SIGLS:"SI GLS",
+}
+
 const arrKrajSin=[
     ["BG SPEEDY CZWARTEK PIĄTEK","BG-CP"],
     ["BG SPEEDY SOBOTA-ŚRODA","BG-SS"],
@@ -330,7 +339,7 @@ function prepareForPrint(arrData4print={}){
     }
     myWindow.document.write(`<button onclick="window.close()">Close</button>`);
     
-    // поля для заполнения  CMR
+    // поля для заполнения  CMR for file shablonCustomDruk.html
     // 
     // id="ref-auto"                     = ref-auto   -1 rows
     // id="adres-dostawy"                = adres-dostawy  -4 rows
@@ -342,9 +351,9 @@ function prepareForPrint(arrData4print={}){
     // id="datasmall"      curr. day "2023-04-30" 
     // id="plomb-number"                 = plomb-number
     // id="brama"                        = brama
-    // id="ipaczki"        paczki/palety = ipaczki  
-    // id="ipalety"        ilosci        = ipalety
-    // id="waga"           waga          = waga
+    // id="ipaczki"        paczki/palety = ipaczki + palety  - 32 cols 9 rows
+    // 
+    // id="waga"           waga          = waga    - 12cols 9 rows
     // id="suma"           suma  ilosci  = suma
     // id="13-place-ALL"  	Instrukcje nadawcy
     // id="19-place-ALL"  Postanowienia specjalne
@@ -374,7 +383,7 @@ function prepareDanyeCMR(d4cmr){
     result["plomb-number"] = d4cmr["plomb-number-"+kurier];
     result["brama"] = d4cmr["brama-"+kurier];
     result["ipaczki"] = d4cmr["ipaczki-"+kurier];
-    result["ipalety"] = d4cmr["ipalety-"+kurier];
+    // result["ipalety"] = d4cmr["ipalety-"+kurier];
     result["waga"] = "";
     result["suma"] = "";
     result["13-place-ALL"] = "";
@@ -682,4 +691,58 @@ function startWork(){
     document.querySelector('#forMemories').addEventListener('click',deleteMem);
     document.querySelector('#forMemories').addEventListener('click',selectTypMemoryVisial);
 
+}
+
+function myTest(){
+    document.querySelector("#div-list-palet").classList.toggle("hidden");
+}
+
+function liczbaListPalet(){
+    let listPaletOrg=document.querySelector("#list-palet").value.split("\n");
+    let objArkonKraj={};
+    listPaletOrg.forEach((item)=>{
+        const name = item.split(".")[0].toUpperCase();
+        if(!objArkonKraj.hasOwnProperty(name)) objArkonKraj[name]=[];
+        objArkonKraj[name].push(item);
+    })
+    // adding form  po ilosci elentow w objArkonKraj  -1
+    let firstForm = true; //Clone#1
+    let iForm ;
+    for (let kraj in objArkonKraj){
+        if (kraj==='') continue;
+        const krPaczki=objArkonKraj[kraj].length;
+        let krArrPalety = [...new Set(objArkonKraj[kraj])];
+        // console.log(krArrPalety);
+        console.log(`for ${kraj} jest ${krArrPalety.length} palet ${krPaczki} paczek`);
+        if (firstForm) {
+            iForm = document.querySelector("#Clone-1");
+            firstForm = !firstForm;
+        }
+        else {
+            iForm = cloneForm();
+        }
+        // console.log(iForm);
+        iForm.querySelector("#country").value = isPresent(objAkronimPalet[kraj]," unknowen paleta");
+        iForm.querySelector("#box-quantity").value = krPaczki;
+        iForm.querySelector("#pallet-quantity").value = krArrPalety.length;
+        document.querySelector("#div-list-palet").classList.add("hidden");
+        // let arrPaczekNaPalete = {};
+        // objArkonKraj[kraj].forEach((a)=>{
+        //     if(arrPaczekNaPalete[a] != undefined) 
+        //         ++arrPaczekNaPalete[a];
+        //     else
+        //         arrPaczekNaPalete[a]=1;
+        // })
+        // // console.log(arrPaczekNaPalete);
+        // objArkonKraj[kraj]=[];
+        // for (let prop in arrPaczekNaPalete){
+        //     if( prop === "") continue;
+        //     // console.log(`${prop}  ${arrPaczekNaPalete[prop]}`);
+        //     objArkonKraj[kraj].push(`${prop}-${arrPaczekNaPalete[prop]}`);
+        // }
+        // objArkonKraj[kraj] = [...new Set(objArkonKraj[kraj])];
+    }
+    //  
+
+    // console.log(objArkonKraj);
 }

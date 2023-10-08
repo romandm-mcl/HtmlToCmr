@@ -82,8 +82,16 @@ textarea{
   .btn-inne{
       background-color: rgb(214, 136, 99);
   }
-
-
+/* block-cmr-textarea */
+.block-cmr-textarea{
+    width: 80%;
+    margin: 10px auto;
+}
+/*  block-custom-save  */
+.block-custom-save{
+    display: flex;
+    flex-direction: column;
+}
 
 .main1{
     display: flex;
